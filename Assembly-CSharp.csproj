@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E9F6A016-2E51-0BDE-BADE-0AF8BEBF4684}</ProjectGuid>
+    <ProjectGuid>{EAF14385-2416-0112-EEF5-7CAF32013131}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -65,6 +65,7 @@
     <Compile Include="Assets\ghost_move.cs" />
     <Compile Include="Assets\GameStateManager.cs" />
     <Compile Include="Assets\PositionThePlayer.cs" />
+    <Compile Include="Assets\Deer.cs" />
     <Compile Include="Assets\soundTrigger.cs" />
     <Compile Include="Assets\Message.cs" />
     <Compile Include="Assets\SoundsArray.cs" />
@@ -76,7 +77,7 @@
     <Compile Include="Assets\sound.cs" />
     <Compile Include="Assets\PauseMenu.cs" />
     <Compile Include="Assets\Sound_sanatorio.cs" />
-    <Compile Include="Assets\Deer.cs" />
+    <Compile Include="Assets\IsMoving.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\laxer tree pkg\README.txt" />
@@ -678,7 +679,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{2BCE55D2-CEE2-AF2E-A3F8-963FA8AA3ADA}</Project>
+      <Project>{A5EE33B9-603A-97A9-383C-DABF916A66CA}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>
