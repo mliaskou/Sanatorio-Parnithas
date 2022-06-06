@@ -56,28 +56,27 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Light_Scene2.cs" />
-    <Compile Include="Assets\Scene4.cs" />
+    <Compile Include="Assets\Scripts\Light_Scene2.cs" />
+    <Compile Include="Assets\Scripts\Scene4.cs" />
     <Compile Include="Assets\AreaLight.cs" />
-    <Compile Include="Assets\Ghost_Sound.cs" />
-    <Compile Include="Assets\PlayerController.cs" />
-    <Compile Include="Assets\Light3.cs" />
-    <Compile Include="Assets\ghost_move.cs" />
-    <Compile Include="Assets\GameStateManager.cs" />
-    <Compile Include="Assets\PositionThePlayer.cs" />
-    <Compile Include="Assets\Deer.cs" />
-    <Compile Include="Assets\soundTrigger.cs" />
-    <Compile Include="Assets\Message.cs" />
-    <Compile Include="Assets\SoundsArray.cs" />
-    <Compile Include="Assets\Light_control.cs" />
-    <Compile Include="Assets\WaitforSeconds.cs" />
-    <Compile Include="Assets\SoundPlay.cs" />
-    <Compile Include="Assets\Menu.cs" />
-    <Compile Include="Assets\ControllerScene2.cs" />
-    <Compile Include="Assets\sound.cs" />
-    <Compile Include="Assets\PauseMenu.cs" />
-    <Compile Include="Assets\Sound_sanatorio.cs" />
-    <Compile Include="Assets\IsMoving.cs" />
+    <Compile Include="Assets\Scripts\Ghost_Sound.cs" />
+    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Light3.cs" />
+    <Compile Include="Assets\Scripts\ghost_move.cs" />
+    <Compile Include="Assets\Scripts\GameStateManager.cs" />
+    <Compile Include="Assets\Scripts\PositionThePlayer.cs" />
+    <Compile Include="Assets\Scripts\Deer.cs" />
+    <Compile Include="Assets\Scripts\soundTrigger.cs" />
+    <Compile Include="Assets\Scripts\Message.cs" />
+    <Compile Include="Assets\Scripts\SoundsArray.cs" />
+    <Compile Include="Assets\Scripts\Light_control.cs" />
+    <Compile Include="Assets\Scripts\WaitforSeconds.cs" />
+    <Compile Include="Assets\Scripts\SoundPlay.cs" />
+    <Compile Include="Assets\Scripts\IsMoving.cs" />
+    <Compile Include="Assets\Scripts\Menu.cs" />
+    <Compile Include="Assets\Scripts\ControllerScene2.cs" />
+    <Compile Include="Assets\Scripts\sound.cs" />
+    <Compile Include="Assets\Scripts\PauseMenu.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\laxer tree pkg\README.txt" />
