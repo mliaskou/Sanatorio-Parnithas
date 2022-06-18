@@ -5,63 +5,64 @@ using UnityEngine.AI;
 
 public class Deer : MonoBehaviour
 {
-
-    NavMeshAgent nma;
     public GameObject player;
+    public GameObject position2;
     Animator anim;
+    NavMeshAgent nma;
+    public Transform[] targets;
 
-
-    private void Start()
+    void Start()
     {
-        nma = this.GetComponent<NavMeshAgent>();
-        anim = this.GetComponent<Animator>();
-        nma.updatePosition = false;
-        nma.updateRotation = true;
+        nma = GetComponent<NavMeshAgent>();
     }
-
-
-    private void Update()
+    void Update()
     {
-        nma.SetDestination(player.transform.position);
-        anim.SetFloat("Speed", 1f);
-
-
-
-
-             float distance = Vector3.Distance(nma.destination, player.transform.position);
-
-        if (distance > 1f)
+        var currentIndex = GetCurrentTargetIndex();
+        if (currentIndex.HasValue)
         {
-            // Play walk anim
-            anim.SetFloat("SpeedY", 1);
-        }
-        else
-        {
-            // Play idle anim
-            anim.SetFloat("SpeedY", 0);
-        }
-
-        nma.nextPosition = anim.rootPosition;
-    }
-
-    /* [RequireComponent(typeof(Animator))]
-
-    public class RootMotionScript : MonoBehaviour
-    {
-
-        void OnAnimatorMove()
-        {
-            Animator animator = GetComponent<Animator>();
-
-            if (animator)
+            var nextTargetIndex = currentIndex.Value + 1;
+            if (nextTargetIndex >= targets.Length)
             {
-                Vector3 newPosition = transform.position;
-                newPosition.z += animator.GetFloat("Runspeed") * Time.deltaTime;
-                transform.position = newPosition;
+                nextTargetIndex = 0;
+            }
+            var nextTarget = targets[nextTargetIndex];
+            nma.SetDestination(nextTarget.transform.position);
+        }
+    }
+
+    int? GetCurrentTargetIndex()
+    {
+        for (int i = 0; i < targets.Length; i++)
+        {
+            var target = targets[i];
+            var distance = Vector3.Distance(target.position, transform.position);
+            if (distance < 0.25f)
+            {
+                return i;
             }
         }
+        return null;
+    }
+    /*
+        void Start()
+        {
 
-    }*/
+            anim = GetComponent<Animator>();
+            nma = GetComponent<NavMeshAgent>();
+            //nma.updatePosition = false;
+            anim.applyRootMotion = true;
+
+        }
+
+        void Update()
+        {
+            nma.SetDestination(player.transform.position);
+            var distance = Vector3.Distance(player.transform.position, transform.position);
+            if (distance < 0.25f)
+            {
+                nma.isStopped = true;
+            }
+        }*/
 }
 
 

@@ -61,13 +61,13 @@
     <Compile Include="Assets\AreaLight.cs" />
     <Compile Include="Assets\Scripts\Ghost_Sound.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\CubeController.cs" />
     <Compile Include="Assets\Scripts\Light3.cs" />
     <Compile Include="Assets\Scripts\ghost_move.cs" />
     <Compile Include="Assets\Scripts\GameStateManager.cs" />
     <Compile Include="Assets\Scripts\PositionThePlayer.cs" />
     <Compile Include="Assets\Scripts\Deer.cs" />
     <Compile Include="Assets\Scripts\soundTrigger.cs" />
-    <Compile Include="Assets\Scripts\Message.cs" />
     <Compile Include="Assets\Scripts\SoundsArray.cs" />
     <Compile Include="Assets\Scripts\Light_control.cs" />
     <Compile Include="Assets\Scripts\WaitforSeconds.cs" />

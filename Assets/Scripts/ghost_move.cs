@@ -23,7 +23,7 @@ public class ghost_move : MonoBehaviour
                 nextTargetIndex = 0;
             }
             var nextTarget = targets[nextTargetIndex];
-            nma.SetDestination(nextTarget.position);
+            nma.SetDestination(nextTarget.transform.position);
         }
     }
 
