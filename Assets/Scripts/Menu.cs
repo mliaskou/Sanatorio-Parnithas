@@ -11,6 +11,7 @@ public class Menu : MonoBehaviour
     public static bool isLoaded2;
 
     public GameObject imageCredits;
+    [SerializeField] AudioSource creditsSound;
     void Awake()
     {
 
@@ -43,7 +44,7 @@ public class Menu : MonoBehaviour
 
     public void ApplicationQuit()
     {
-        Application.Quit();
+        UnityEditor.EditorApplication.isPlaying = false;
 
     }
 
@@ -58,6 +59,18 @@ public class Menu : MonoBehaviour
         imageCredits.SetActive(false);
     }
 
+
+    public void CreditSoundPlay()
+    {
+        creditsSound.Play();
+        this.GetComponent<AudioSource>().Stop();
+    }
+
+    public void CreditSoundStop()
+    {
+        creditsSound.Stop();
+        this.GetComponent<AudioSource>().Play();
+    }
 }
 
 

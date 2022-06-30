@@ -36,31 +36,31 @@ public class PlayerController : MonoBehaviour
             
             if (hit.collider.CompareTag("Audio"))
             {
-                
                 raycastedObj = hit.collider.gameObject;
-                interactableText.gameObject.SetActive(true);
-                CrosshairActive();
-                
+                float distance = Vector3.Distance(raycastedObj.gameObject.transform.position, transform.position);
                 
 
-                if (Input.GetKeyDown(KeyCode.E))
+                if(distance < 5f)
                 {
-                    
-                    Debug.Log("I have interacted with an object");
-                    sound = raycastedObj.GetComponent<AudioSource>();
-                    sound.Play();
-                    s = raycastedObj.GetComponent<SoundPlay>();
-                    s.SoundList();
-                    count++;
-                    CountText.text = count.ToString();
-                   
-                }
+                    interactableText.gameObject.SetActive(true);
+                    CrosshairActive();
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
 
+                        Debug.Log("I have interacted with an object");
+                        sound = raycastedObj.GetComponent<AudioSource>();
+                        sound.Play();
+                        s = raycastedObj.GetComponent<SoundPlay>();
+                        s.SoundList();
+                        count++;
+                        CountText.text = count.ToString();
+
+                    }
+                }
             }
-   
         }
     
-        else
+        else 
         {
             CrosshairNormal();
             interactableText.gameObject.SetActive(false);

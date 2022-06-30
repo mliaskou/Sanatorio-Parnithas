@@ -5,13 +5,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public GameStateManager gsm;
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -19,6 +13,7 @@ public class PauseMenu : MonoBehaviour
             if (GameStateManager.isPaused)
             {
                 gsm.Resume();
+                gsm.HideMenu();
                
             }
             else

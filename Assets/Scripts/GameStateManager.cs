@@ -10,11 +10,6 @@ public class GameStateManager : MonoBehaviour
     public static bool isPaused = false;
     public GameObject player;
 
-  
-     public void Update()
-    {
-       
-    }
         public void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -40,7 +35,7 @@ public class GameStateManager : MonoBehaviour
 
          public void Quit()
         {
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
          }
 
     public void ShowMenu()
