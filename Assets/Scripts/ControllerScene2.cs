@@ -47,17 +47,21 @@ public class ControllerScene2 : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Message.SetActive(true);
-            LightIsOn = true;
+            TestMessage(true);
         }
+    }
+
+    private void TestMessage(bool state)
+    {
+        Message.SetActive(state);
+        LightIsOn = state;
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Message.SetActive(false);
-            LightIsOn = false;
+            TestMessage(false);
         }
 
     }

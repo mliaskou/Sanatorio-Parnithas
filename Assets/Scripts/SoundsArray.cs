@@ -14,34 +14,14 @@ public class SoundsArray : MonoBehaviour
 
     public GameObject Image;
 
-    // Update is called once per frame
-
-    public void Start()
+    public bool AreNarrativesCompleted()
     {
-        isAllTrue = true;
-       
-    }
-    void Update()
-    {
-
+       bool result=false;
         foreach (bool b in Array)
         {
-            if (b)
-            {
-                isAllTrue = true;
-            }
-            else
-            {
-                isAllTrue = false;
-                break;
-            }
-        }
-        if (isAllTrue == true)
-        {
-          
-          
-        }
-   
+          result= b;
+        }  
+        return result;
     }
 
     public void ReturnToGame()
@@ -50,17 +30,12 @@ public class SoundsArray : MonoBehaviour
         Image.SetActive(false);
     }
 
-    public void ArraySound()
+    public void ArraySound(int count)
     {
         for (int i = 0; i < Array.Length; i++)
         {
-            print("Scene " + (i + 1) + ": " + Array[i]);
-           
-
-        }
-      
+            //print("Scene " + (i + 1) + ": " + Array[i]); 
+        }        
     }
-   
-    
 }
 

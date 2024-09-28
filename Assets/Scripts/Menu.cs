@@ -2,74 +2,96 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Runtime.CompilerServices;
 
 
 public class Menu : MonoBehaviour
 {
-    public static Menu Instance;
-    public static bool isLoaded1;
-    public static bool isLoaded2;
+    public static Menu s_Instance;
+    public static bool s_IsLoaded;
 
-    public GameObject imageCredits;
+    public GameObject _ImageCredits;
+    public GameObject _LoadingScreen;
+    public GameObject _MenuCanvas;
+
+    GameObject loading;
+
     [SerializeField] AudioSource creditsSound;
     void Awake()
-    {
-
+    { 
         // if the singleton hasn't been initialized yet
-        if (Instance != null && Instance != this)
+        if (s_Instance != null && s_Instance != this)
         {
             Destroy(this.gameObject);
             return;//Avoid doing anything else
         }
 
-        Instance = this;
+        s_Instance = this;
         DontDestroyOnLoad(this.gameObject);
+
+        loading = GameObject.Instantiate(_LoadingScreen);
+        loading.transform.SetParent(_MenuCanvas.transform, false);
+        loading.SetActive(false);
+    }
+
+    public void InitializeMenuUI()
+    {
 
     }
     public void Sanatorio()
     {
-        Debug.Log("IsTrue1");
-        SceneManager.LoadScene("SampleScene");
-        isLoaded1 = true;
-        isLoaded2 = false;
-       
+        StartCoroutine(LoadSanatorio());
     }
+
+
     public void ParkofSouls()
     {
-        Debug.Log("IsTrue2");
-        SceneManager.LoadScene("SampleScene");
-        isLoaded2 = true;
-        isLoaded1 = false;
+        StartCoroutine(LoadParkOfSouls());
+    }
+    IEnumerator LoadSanatorio(){
+        loading.SetActive(true);
+        CreditSoundStop();
+        s_IsLoaded = false;
+        SceneManager.LoadSceneAsync("SampleScene");   
+        yield return null;
+        loading.SetActive(false);
+    }
+
+
+    IEnumerator LoadParkOfSouls()
+    {
+        loading.SetActive(true);
+        CreditSoundStop();
+        s_IsLoaded = true;
+        SceneManager.LoadSceneAsync("SampleScene");
+        yield return null;
+        loading.SetActive(false);
     }
 
     public void ApplicationQuit()
     {
-        UnityEditor.EditorApplication.isPlaying = false;
-
+         Application.Quit();
     }
-
 
     public void ShowCredits()
     {
-        imageCredits.SetActive(true);
+        _ImageCredits.SetActive(true);
     }
 
     public void CloseImage()
     {
-        imageCredits.SetActive(false);
+        _ImageCredits.SetActive(false);
     }
 
 
     public void CreditSoundPlay()
     {
         creditsSound.Play();
-        this.GetComponent<AudioSource>().Stop();
     }
 
     public void CreditSoundStop()
     {
         creditsSound.Stop();
-        this.GetComponent<AudioSource>().Play();
     }
 }
 
