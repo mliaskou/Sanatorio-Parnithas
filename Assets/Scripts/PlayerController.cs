@@ -6,16 +6,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private GameObject raycastedObj;
-    
+    private GameObject soundObject=null;
+
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
     [SerializeField] private Image uiCrosshair;
     [SerializeField] private Text interactableText;
-    private AudioSource sound;
 
-    public Text CountText;
-    public static int count =0;
-    
+    public NarrativesInventory _NarrativesInventory;
+    SoundPlay soundplay;
+
+    public static int count = 0;
+    Color interactabletextcolor = new Color32(255, 95, 8, 255);
 
     [SerializeField] private Text txt;
 
@@ -23,60 +25,65 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         interactableText = GameObject.Find("InteractableText").GetComponent<Text>();
+        _NarrativesInventory = GameObject.Find("NarrativeInventory").GetComponent<NarrativesInventory>();
     }
+
 
     void Update()
     {
         RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
-        if(Physics.Raycast(transform.position, fwd,out hit, rayLength, layerMaskInteract.value))
+        if (Physics.Raycast(transform.position, fwd, out hit, rayLength, layerMaskInteract.value))
         {
-            Debug.Log("RAYCAST");
-            
             if (hit.collider.CompareTag("Audio"))
             {
                 raycastedObj = hit.collider.gameObject;
+                soundObject = hit.collider.gameObject;
                 float distance = Vector3.Distance(raycastedObj.gameObject.transform.position, transform.position);
-                
-
-                if(distance < 5f)
+                soundplay = raycastedObj.GetComponent<SoundPlay>();
+                if (distance < 5f)
                 {
                     interactableText.gameObject.SetActive(true);
                     CrosshairActive();
+
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-
-                        Debug.Log("I have interacted with an object");
-                        sound = raycastedObj.GetComponent<AudioSource>();
-                        sound.Play();
-                        s = raycastedObj.GetComponent<SoundPlay>();
-                        s.SoundList();
-                        count++;
-                        CountText.text = count.ToString();
-
+                        
+                        if (!soundplay._audioHasPlayed)
+                        {                          
+                            count++;
+                            _NarrativesInventory._CountText.text = count.ToString();
+                        }
+                        soundplay.SoundList();
                     }
                 }
             }
         }
-    
-        else 
+
+        else
         {
             CrosshairNormal();
             interactableText.gameObject.SetActive(false);
-            
+        }
+
+        if (soundObject != null)
+        {
+            if (Vector3.Distance(soundObject.transform.position, transform.position) > 5f)
+            {
+                soundplay.StopAudio();
+                soundObject = null;
+            }
         }
     }
 
     void CrosshairActive()
     {
-        uiCrosshair.color = Color.red;
+        uiCrosshair.gameObject.SetActive(true);
+        uiCrosshair.color = interactabletextcolor;
     }
     void CrosshairNormal()
     {
-        uiCrosshair.color = Color.white;
+        uiCrosshair.gameObject.SetActive(false);
     }
-
- 
-
 }

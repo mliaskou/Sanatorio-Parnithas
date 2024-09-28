@@ -35,8 +35,9 @@ public class GameStateManager : MonoBehaviour
 
          public void Quit()
         {
-            UnityEditor.EditorApplication.isPlaying = false;
-         }
+           Application.Quit();
+            //UnityEditor.EditorApplication.isPlaying = false;
+        }
 
     public void ShowMenu()
     {
