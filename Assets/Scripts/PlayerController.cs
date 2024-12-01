@@ -1,33 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private GameObject raycastedObj;
-    private GameObject soundObject=null;
 
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
     [SerializeField] private Image uiCrosshair;
     [SerializeField] private Text interactableText;
 
-    public NarrativesInventory _NarrativesInventory;
     SoundPlay soundplay;
 
     public static int count = 0;
     Color interactabletextcolor = new Color32(255, 95, 8, 255);
 
     [SerializeField] private Text txt;
-
-    private SoundPlay s;
     void Start()
     {
         interactableText = GameObject.Find("InteractableText").GetComponent<Text>();
-        _NarrativesInventory = GameObject.Find("NarrativeInventory").GetComponent<NarrativesInventory>();
     }
-
 
     void Update()
     {
@@ -39,23 +31,16 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.CompareTag("Audio"))
             {
                 raycastedObj = hit.collider.gameObject;
-                soundObject = hit.collider.gameObject;
                 float distance = Vector3.Distance(raycastedObj.gameObject.transform.position, transform.position);
                 soundplay = raycastedObj.GetComponent<SoundPlay>();
                 if (distance < 5f)
                 {
                     interactableText.gameObject.SetActive(true);
                     CrosshairActive();
-
+                    soundplay.ShowNarrativeCanvas();
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        
-                        if (!soundplay._audioHasPlayed)
-                        {                          
-                            count++;
-                            _NarrativesInventory._CountText.text = count.ToString();
-                        }
-                        soundplay.SoundList();
+                        soundplay.PlayAudio();
                     }
                 }
             }
@@ -67,12 +52,14 @@ public class PlayerController : MonoBehaviour
             interactableText.gameObject.SetActive(false);
         }
 
-        if (soundObject != null)
+        if (raycastedObj != null)
         {
-            if (Vector3.Distance(soundObject.transform.position, transform.position) > 5f)
+            if (Vector3.Distance(raycastedObj.transform.position, transform.position) > 5f)
             {
-                soundplay.StopAudio();
-                soundObject = null;
+                if (soundplay != null)
+                {
+                    soundplay.StopAudio();
+                }
             }
         }
     }

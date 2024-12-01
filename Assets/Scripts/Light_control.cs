@@ -12,29 +12,18 @@ public class Light_control : MonoBehaviour
         sanatorio_Light.intensity = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag ("Player"))
+        if (other.CompareTag("Player"))
         {
             sanatorio_Light.intensity = 18f;
-
         }
-
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             sanatorio_Light.intensity = 0f;
-
         }
-
     }
-
 }

@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PositionThePlayer : MonoBehaviour
+public class PositionThePlayer:MonoBehaviour
 {
-
     public GameObject position1;
     public GameObject position2;
-    public GameObject player;
-
-    private void Awake()
+    public static bool S_IsLoaded;
+    public void InitializePlayerPosition(GameObject player)
     {
-        if (!Menu.s_IsLoaded)
+        if (S_IsLoaded)
         {
             player.transform.position = position1.transform.position;
         }
@@ -19,6 +15,5 @@ public class PositionThePlayer : MonoBehaviour
         {
             player.transform.position = position2.transform.position;
         }
-
     }
 }
