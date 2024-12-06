@@ -3,6 +3,8 @@ using System.Xml.Serialization;
 using UnityEngine;
 using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 
 [Serializable]
 public class Narrative
@@ -44,18 +46,23 @@ public class SerializeXmlWrittenNarratives: MonoBehaviour
     {
         fileName = Path.Combine(Application.dataPath,"Narratives.xml");
         narratives.Clear();
-        narratives.Add(new Narrative("Introduction_N", introduction));
-        narratives.Add(new Narrative("Entrance_N", entrance));
-        narratives.Add(new Narrative("Room2N", room2N));
-        narratives.Add(new Narrative("Room3N", room3N));
+        narratives.Add(new Narrative("Introduction", introduction));
+        narratives.Add(new Narrative("Entrance", entrance));
+        narratives.Add(new Narrative("Room2", room2N));
+        narratives.Add(new Narrative("Room3", room3N));
         narratives.Add(new Narrative("Corridor", corridor));
-        narratives.Add(new Narrative("ExitN", exitN));
-        narratives.Add(new Narrative("Room4N", room4N));
+        narratives.Add(new Narrative("Exit", exitN));
+        narratives.Add(new Narrative("Room4", room4N));
         ListNarrative listNarrative = new ListNarrative();
         listNarrative.Narratives.Clear();
         listNarrative.Narratives = narratives;
+
+        var settings = new XmlWriterSettings {
+            Encoding = Encoding.UTF8,
+            Indent = true
+        };
         XmlSerializer serializer = new XmlSerializer(typeof(ListNarrative));
-        using (var stream = File.Create(fileName))
+        using (var stream = XmlWriter.Create(fileName,settings))
         {
             serializer.Serialize(stream, listNarrative);
         }

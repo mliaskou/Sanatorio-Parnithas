@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
     public Action<GameObject> _ShowNarrativeCanvas;
     public Dictionary<string, string> _NarrativesDict = new Dictionary<string, string>();
     [HideInInspector] public TMP_Text _NarrativesText;
-
+    public TMP_Text _NarrativesNameText;
     private void Awake()
     {
         _Instance = this;
@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
         foreach(Narrative narrative in listNarrative.Narratives)
         {
             _NarrativesDict.Add(narrative.Id, narrative.Description);
+            Debug.LogError(narrative.Description);
         }
         _NarrativesText = _narrativeCanvas.GetComponent<NarrativesText>()._NarrativesText;
         _ShowNarrativeCanvas = ShowNarrativeCanvas;
@@ -41,10 +42,12 @@ public class UIManager : MonoBehaviour
         _narrativeCanvas.transform.SetParent(go.transform, false);
         if (_NarrativesDict.ContainsKey(go.name))
         {
+            _NarrativesNameText.gameObject.SetActive(true);
+            _NarrativesNameText.text = go.name;
             _NarrativesText.text = _NarrativesDict[go.name];
+            _narrativeCanvas.SetActive(true);
         }
-        _narrativeCanvas.transform.LookAt(_narrativeCanvas.transform.position + GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.forward, GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.up);
-        _narrativeCanvas.SetActive(true);
+        _narrativeCanvas.transform.LookAt(_narrativeCanvas.transform.position + GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.forward, GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.up);    
     }
 
     public void OnDestroy()

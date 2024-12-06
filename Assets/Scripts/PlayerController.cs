@@ -49,7 +49,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             CrosshairNormal();
-            interactableText.gameObject.SetActive(false);
         }
 
         if (raycastedObj != null)
@@ -68,6 +67,7 @@ public class PlayerController : MonoBehaviour
     {
         uiCrosshair.gameObject.SetActive(true);
         uiCrosshair.color = interactabletextcolor;
+        interactableText.color = interactabletextcolor;
     }
     void CrosshairNormal()
     {
