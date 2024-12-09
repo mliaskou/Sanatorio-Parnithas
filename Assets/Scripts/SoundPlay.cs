@@ -5,9 +5,10 @@ public class SoundPlay : MonoBehaviour
 {
     public int count;
 
-    public void ShowNarrativeCanvas()
+    public void ShowNarrativeCanvas(string name)
     {
-        UIManager._Instance._ShowNarrativeCanvas?.Invoke(this.gameObject);
+        Debug.LogError("1");
+        UIManager._Instance._ShowNarrativeCanvas?.Invoke(this.gameObject,name);
     }
 
     public void PlayAudio()

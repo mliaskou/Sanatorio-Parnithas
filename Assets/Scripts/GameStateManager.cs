@@ -12,12 +12,15 @@ public class GameStateManager : MonoBehaviour
 
     private void Awake()
     {
-        _Instance = this;
+        _Instance = this;      
+    }
+    private void Start()
+    {
         GetComponent<PositionThePlayer>().InitializePlayerPosition(player);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
         StartCoroutine(_AudioManager.Initialize());
+        StartCoroutine(player.GetComponent<PlayerController>().Initialise(UIManager._Instance._InteractableText));    
     }
-
     public void Pause()
     {
         player.GetComponent<FirstPersonController>().enabled = false;

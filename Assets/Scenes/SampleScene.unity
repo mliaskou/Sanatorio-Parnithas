@@ -384,7 +384,7 @@ Transform:
   m_Children:
   - {fileID: 1284336327}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &129488312
 GameObject:
@@ -417,7 +417,7 @@ Transform:
   - {fileID: 632641315}
   - {fileID: 1770735263}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &210755187
 GameObject:
@@ -10864,11 +10864,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544521257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -843.438, y: 88.4174, z: -453.81888}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -751.43243, y: -188.15941, z: -189.09119}
+  m_LocalScale: {x: 0.41666663, y: 0.41666663, z: 0.41666663}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2263745257013409913}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &546491046
@@ -11159,7 +11159,7 @@ Transform:
   - {fileID: 450218013}
   - {fileID: 5006512736505612339}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 3.953, z: 0}
 --- !u!1 &632641311
 GameObject:
@@ -11488,8 +11488,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 0.5
+  m_Color: {r: 0.7735849, g: 0.71758634, b: 0.5648629, a: 1}
+  m_Intensity: 1.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11498,7 +11498,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.859
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -11538,7 +11538,7 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
-  m_ShadowAngle: 0
+  m_ShadowAngle: 26.7
 --- !u!4 &705507995
 Transform:
   m_ObjectHideFlags: 0
@@ -12305,7 +12305,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1031349514
 GameObject:
@@ -21864,7 +21864,7 @@ Transform:
   - {fileID: 8879528568526602227}
   - {fileID: 3379676212850430597}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -167.398, z: 0}
 --- !u!1 &619301421340661747
 GameObject:
@@ -21990,7 +21990,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   uiCrosshair: {fileID: 2263745256098084196}
-  interactableText: {fileID: 0}
   txt: {fileID: 0}
 --- !u!1 &840247478517009657
 GameObject:
@@ -23280,6 +23279,7 @@ MonoBehaviour:
   _NarrativesInventory: {fileID: 1357607346}
   _NarrativesText: {fileID: 0}
   _NarrativesNameText: {fileID: 1685296556}
+  _InteractableText: {fileID: 2263745257630646179}
 --- !u!224 &2263745257013409913
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23294,8 +23294,9 @@ RectTransform:
   - {fileID: 1357607343}
   - {fileID: 1828874664}
   - {fileID: 847822934}
+  - {fileID: 544521260}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -25366,7 +25367,7 @@ Transform:
   m_Children:
   - {fileID: 6360803790294975728}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0.033, y: 179.516, z: -0.74600005}
 --- !u!4 &5006512736505612339
 Transform:
@@ -26904,7 +26905,7 @@ Transform:
   m_Children:
   - {fileID: 671598016627670477}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 35.567, z: 0}
 --- !u!1 &8636403920135596310
 GameObject:
@@ -27193,7 +27194,7 @@ Transform:
   - {fileID: 1554606582}
   - {fileID: 1570004960}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0.998, y: 77.044, z: -0.23}
 --- !u!23 &9149303698721737898
 MeshRenderer:

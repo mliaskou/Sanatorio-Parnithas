@@ -1,5 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,17 +9,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
     [SerializeField] private Image uiCrosshair;
-    [SerializeField] private Text interactableText;
+    Text interactableText;
 
     SoundPlay soundplay;
 
     public static int count = 0;
     Color interactabletextcolor = new Color32(255, 95, 8, 255);
-
     [SerializeField] private Text txt;
-    void Start()
+
+    public IEnumerator Initialise(Text interactabletext)
     {
-        interactableText = GameObject.Find("InteractableText").GetComponent<Text>();
+        interactableText = interactabletext;
+        yield return null;
     }
 
     void Update()
@@ -31,13 +33,15 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.CompareTag("Audio"))
             {
                 raycastedObj = hit.collider.gameObject;
+                string name = raycastedObj.name;
                 float distance = Vector3.Distance(raycastedObj.gameObject.transform.position, transform.position);
                 soundplay = raycastedObj.GetComponent<SoundPlay>();
                 if (distance < 5f)
                 {
                     interactableText.gameObject.SetActive(true);
                     CrosshairActive();
-                    soundplay.ShowNarrativeCanvas();
+                    Debug.LogError(name);
+                    soundplay.ShowNarrativeCanvas(name);
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         soundplay.PlayAudio();
