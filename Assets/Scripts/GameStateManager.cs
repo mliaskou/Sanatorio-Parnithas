@@ -19,7 +19,16 @@ public class GameStateManager : MonoBehaviour
         GetComponent<PositionThePlayer>().InitializePlayerPosition(player);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
         StartCoroutine(_AudioManager.Initialize());
-        StartCoroutine(player.GetComponent<PlayerController>().Initialise(UIManager._Instance._InteractableText));    
+        StartCoroutine(UIManager._Instance.Initialize());
+        
+        if (UIManager._Instance._InteractableText!=null)
+        {
+            StartCoroutine(player.GetComponent<PlayerController>().Initialise(UIManager._Instance._InteractableText));
+        }
+        else
+        {
+            Debug.LogError("It is null");
+        }
     }
     public void Pause()
     {

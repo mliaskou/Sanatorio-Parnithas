@@ -15,7 +15,6 @@ public class UIManager : MonoBehaviour
     public Dictionary<string, string> _NarrativesDict = new Dictionary<string, string>();
     [HideInInspector] public TMP_Text _NarrativesText;
     public TMP_Text _NarrativesNameText;
-
     [Header("Player")]
     public Text _InteractableText;
     private void Awake()
@@ -23,7 +22,7 @@ public class UIManager : MonoBehaviour
         _Instance = this;
     }
 
-    public IEnumerator Initialize(Action onComplete)
+    public IEnumerator Initialize()
     {
         if (_narrativeCanvas == null)
         {
@@ -43,7 +42,6 @@ public class UIManager : MonoBehaviour
         }
         _NarrativesText = _narrativeCanvas.GetComponent<NarrativesText>()._NarrativesText;
         _ShowNarrativeCanvas = ShowNarrativeCanvas;
-        onComplete?.Invoke();
         yield return null;
     }
     public void ShowNarrativeCanvas(GameObject go,string name)

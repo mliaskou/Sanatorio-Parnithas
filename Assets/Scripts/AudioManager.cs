@@ -16,24 +16,31 @@ public class Audio
 public class AudioManager : MonoBehaviour
 {
     private AudioSource _narrativesAudioSource;
-    private Dictionary<string, Audio> _audioNarratives = new Dictionary<string, Audio>();  
+    private Dictionary<string, Audio> _audioNarratives = new Dictionary<string, Audio>();
     int count = 0;
 
     [HideInInspector] public AudioManagerEnvironmentS _AudioManagerEnvironmentS;
     [SerializeField] public List<GameObject> _EnvironmentsSounds = new List<GameObject>();
+    List<string> _narrativeIds = new List<string>() {
+    "WindowN","SaddnessN","Room2","MarbleLabelN","Introduction","GrammofwnoN","FeatherN","Exit","Entrance","CrossN"
+    };
     public IEnumerator Initialize()
     {
         _narrativesAudioSource = GetComponent<AudioSource>();
-        AudioClip[] narratives = Resources.LoadAll<AudioClip>("Narratives/");
-        foreach(AudioClip audio in narratives)
+
+        foreach (string id in _narrativeIds)
         {
-            if (audio != null)
+            if (!string.IsNullOrEmpty(id))
             {
-                _audioNarratives.Add(audio.name, new Audio(audio, false));
+                yield return AddressablesLoader.InstantiateGameObject(id, (audio) =>
+                {
+
+                    _audioNarratives.Add(id, new Audio(audio, false));
+                });
             }
             else
             {
-                Debug.LogError($"Audio {audio.name} is null");
+                Debug.LogError($"Audio {id} is null");
             }
         }
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
@@ -41,15 +48,15 @@ public class AudioManager : MonoBehaviour
         yield return null;
     }
 
-    public void Play(string audioName)
+    public void Play(string audioID)
     {
-        if (_audioNarratives.ContainsKey(audioName))
+        if (_audioNarratives.ContainsKey(audioID))
         {
             Debug.Log("exists");
-            _narrativesAudioSource.clip = _audioNarratives[audioName]._AudioClip;
-            if (!_audioNarratives[audioName]._AudioHasPlayed)
+            _narrativesAudioSource.clip = _audioNarratives[audioID]._AudioClip;
+            if (!_audioNarratives[audioID]._AudioHasPlayed)
             {
-                _audioNarratives[audioName]._AudioHasPlayed = true;
+                _audioNarratives[audioID]._AudioHasPlayed = true;
                 count++;
                 UIManager._Instance._NarrativesInventory._CountText.text = count.ToString();
             }
@@ -58,11 +65,11 @@ public class AudioManager : MonoBehaviour
                 Debug.LogError("All narratives have been completed");
             }
             _narrativesAudioSource.Play();
-        }      
+        }
         else
         {
-            Debug.Log($"The audio with name {audioName} does not exist");
-        }   
+            Debug.Log($"The audio with name {audioID} does not exist");
+        }
     }
 
     public bool HasAudio(string audioName)
@@ -72,6 +79,7 @@ public class AudioManager : MonoBehaviour
         {
             result = true;
         }
+        Debug.LogError(result);
         return result;
     }
     public void Stop(string audioName)
@@ -90,7 +98,7 @@ public class AudioManager : MonoBehaviour
     public bool AreNarrativesCompleted()
     {
         bool result = false;
-        foreach(var value in _audioNarratives.Values)
+        foreach (var value in _audioNarratives.Values)
         {
             if (value._AudioHasPlayed)
             {
@@ -107,6 +115,10 @@ public class AudioManager : MonoBehaviour
     public IEnumerator DestroyFeature()
     {
         _audioNarratives.Clear();
+        foreach (Audio audio in _audioNarratives.Values)
+        {
+            UnityEngine.AddressableAssets.Addressables.Release(audio);
+        }
         yield return _AudioManagerEnvironmentS.DestroyFeature();
         _AudioManagerEnvironmentS = null;
     }

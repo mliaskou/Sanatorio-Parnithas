@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: AudioClips
+  m_EditorClassIdentifier: 
+  m_GroupName: AudioClips
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 8f5b1b1454d6e0e40b82f147c70e5037
+  m_SerializeEntries:
+  - m_GUID: 58be43e94f676ec45994c7eec639d44c
+    m_Address: CrossN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d36ed02c43815a4ebc77ed77e881836
+    m_Address: Entrance
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 802ce95dee7208946a96742e4f082521
+    m_Address: Exit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0672b24d4d4f37f4081f3eee848c500e
+    m_Address: FeatherN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f33140bc5a48d704daf77a37452c70b1
+    m_Address: GrammofwnoN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6d143851618dad40b50b7c6e84956d8
+    m_Address: Introduction
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09e2c12f56afa7a4582046a1124117a2
+    m_Address: MarbleLabelN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0b1dff753f0676d42af957165b83a9d4
+    m_Address: Room2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 51b396b9a238ad748820cebf952076d3
+    m_Address: SaddnessN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e1a502b38b5ef342bd5b5f9872e5fc7
+    m_Address: WindowN
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a096b3ff828d2bf42a93831da28366c8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8fe14c8e3fcdb0343bf25035156969d1, type: 2}
+    - {fileID: 11400000, guid: 802dfd772dafe214a97dfdc5be18db51, type: 2}
