@@ -7,14 +7,14 @@ public class AudioManagerEnvironmentS
     AudioClip[] spatialSounds;
     public IEnumerator Initialize(List<GameObject> environmentsSounds)
     {
-         spatialSounds = Resources.LoadAll<AudioClip>("SpatialSounds/");
+        spatialSounds = Resources.LoadAll<AudioClip>("SpatialSounds/");
         foreach (AudioClip audio in spatialSounds)
         {
-           foreach(GameObject go in environmentsSounds)
+            foreach (GameObject go in environmentsSounds)
             {
-                if(go.name == audio.name){
-                    go.GetComponent<AudioSource>().clip = audio;
-                    go.GetComponent<Ghost_Sound>().Initialize();
+                if (go.name == audio.name)
+                {
+                    go.GetComponent<Ghost_Sound>().Initialize(audio);
                 }
             }
         }
@@ -23,7 +23,7 @@ public class AudioManagerEnvironmentS
 
     public IEnumerator DestroyFeature()
     {
-        for(int i=spatialSounds.Length-1; i>=0; i++)
+        for (int i = spatialSounds.Length - 1; i >= 0; i++)
         {
             UnityEngine.Object.Destroy(spatialSounds[i]);
         }

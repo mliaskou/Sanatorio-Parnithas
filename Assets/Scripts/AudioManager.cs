@@ -27,7 +27,7 @@ public class AudioManager : MonoBehaviour
     public IEnumerator Initialize()
     {
         _narrativesAudioSource = GetComponent<AudioSource>();
-
+        _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
         foreach (string id in _narrativeIds)
         {
             if (!string.IsNullOrEmpty(id))
@@ -43,7 +43,7 @@ public class AudioManager : MonoBehaviour
                 Debug.LogError($"Audio {id} is null");
             }
         }
-        _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
+        
         yield return _AudioManagerEnvironmentS.Initialize(_EnvironmentsSounds);
         yield return null;
     }
