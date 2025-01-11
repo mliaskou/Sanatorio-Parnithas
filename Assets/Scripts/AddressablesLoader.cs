@@ -6,18 +6,31 @@ using System;
 
 public static class AddressablesLoader
 {
-    public static IEnumerator InstantiateGameObject(string key, Action<AudioClip> onComplete)
+    public static IEnumerator InstantiateGeneralAsync<T>(string key, Action<T> onComplete) where T:class
     {
-        AsyncOperationHandle<AudioClip> opHandle;
-        opHandle = Addressables.LoadAssetAsync<AudioClip>(key);
+        AsyncOperationHandle<T> opHandle;
+        opHandle = Addressables.LoadAssetAsync<T>(key);
         yield return opHandle;
 
         if (opHandle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.LogError("succeedeed");
-            AudioClip obj = opHandle.Result;
+            T obj = opHandle.Result;
+            onComplete?.Invoke(obj);
+        }        
+    }
+
+    public static IEnumerator InstantiateGameObject(string key, Action<GameObject> onComplete)
+    {
+        AsyncOperationHandle<GameObject> opHandle;
+        opHandle = Addressables.InstantiateAsync(key);
+        yield return opHandle;
+
+        if (opHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Debug.LogError("succeedeed");
+            GameObject obj = opHandle.Result;
             onComplete?.Invoke(obj);
         }
-        
     }
 }

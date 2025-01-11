@@ -1,9 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine.UI;
+using UnityEngine;
 
-public class PauseMenu : MonoBehaviour
+
+public class PauseMenu:MonoBehaviour
 {
-    public GameObject _PauseMenu;
+    private GameObject _menu;
+    public Button _Play;
+    public Button _Menu;
+    public Button _Pause;
+    [SerializeField] GameObject _pauseMenu;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -11,23 +17,43 @@ public class PauseMenu : MonoBehaviour
             Pause();
         }
     }
+    public void Initialise(GameObject menu)
+    {
+        //Debug.LogError("dgdfgdfg");
+        _menu = menu;
+        _Play.onClick.AddListener(() =>
+        {
+            Resume();
+        });
 
+        _Pause.onClick.AddListener(() =>
+        {
+            Pause();
+        });
+
+        _Menu.onClick.AddListener(() =>
+        {
+            Menu();
+        });
+    }
     public void Pause()
-    {       
+    {
+        Debug.LogError("Pause");
         GameStateManager._Instance.Pause();
         ShowMenu();
     }
     public void Resume()
     {
+        Debug.LogError("Resume");
         GameStateManager._Instance.Resume();
         HideMenu();
     }
     public void Menu()
     {
-        LoadingScreen.s_Instance.SetLoadingScreen(true);
-        GameStateManager._Instance.DestroyFeature();
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Menu");
-        operation.completed += (asyncoperation) => { LoadingScreen.s_Instance.SetLoadingScreen(false); };
+        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        _menu.SetActive(true);
+        HideMenu();
+        UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
     }
 
     public void Quit()
@@ -40,12 +66,16 @@ public class PauseMenu : MonoBehaviour
 
     private void ShowMenu()
     {
-        _PauseMenu.SetActive(true);
+        _pauseMenu.SetActive(true);
     }
 
     private void HideMenu()
     {
-        _PauseMenu.SetActive(false);
+        _pauseMenu.SetActive(false);
     }
 
+    public void DestroyFeature()
+    {
+        UnityEngine.AddressableAssets.Addressables.Release(gameObject);
+    }
 }

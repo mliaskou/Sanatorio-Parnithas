@@ -10,36 +10,45 @@ public class GameStateManager : MonoBehaviour
     [HideInInspector] public Camera _PlayerCamera;
     public AudioManager _AudioManager;
 
+    private PlayerController _playerController;
+    private FirstPersonController _firstPersonController;
+
     private void Awake()
     {
         _Instance = this;      
     }
-    private void Start()
-    {
-        GetComponent<PositionThePlayer>().InitializePlayerPosition(player);
+    private IEnumerator Start()
+    {       
+         GetComponent<PositionThePlayer>().SetDepedencies(player, Resume);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
-        StartCoroutine(_AudioManager.Initialize());
-        StartCoroutine(UIManager._Instance.Initialize());
-        
+        _playerController = player.transform.GetChild(0).GetComponent<PlayerController>();
+        _firstPersonController = player.GetComponent<FirstPersonController>();
+        Pause();
+        yield return UIManager._Instance.Initialize();
+        yield return _AudioManager.Initialize();
+        _AudioManager._ShowAndIncreaseCountText = UIManager._Instance.IncreaseAndDisplayCountText;
+
+
         if (UIManager._Instance._InteractableText!=null)
         {
-            StartCoroutine(player.GetComponent<PlayerController>().Initialise(UIManager._Instance._InteractableText));
+            yield return _playerController.Initialise(UIManager._Instance._InteractableText);
         }
         else
         {
             Debug.LogError("It is null");
         }
+        yield return null;
     }
     public void Pause()
     {
-        player.GetComponent<FirstPersonController>().enabled = false;
+        _firstPersonController.enabled = false;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
         S_isPaused = true;
     }
     public void Resume()
     {
-        player.GetComponent<FirstPersonController>().enabled = true;
+        _firstPersonController.enabled = true;
         Cursor.visible = false;
         S_isPaused = false;
     }
@@ -47,6 +56,7 @@ public class GameStateManager : MonoBehaviour
     public IEnumerator DestroyFeature()
     {
         yield return _AudioManager.DestroyFeature();
+        _AudioManager._ShowAndIncreaseCountText = null;
         _AudioManager = null;
         S_isPaused = false;
         _Instance = null;

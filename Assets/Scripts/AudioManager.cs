@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,24 +16,26 @@ public class Audio
 }
 public class AudioManager : MonoBehaviour
 {
-    private AudioSource _narrativesAudioSource;
-    private Dictionary<string, Audio> _audioNarratives = new Dictionary<string, Audio>();
-    int count = 0;
+    public Action<int> _ShowAndIncreaseCountText;
 
     [HideInInspector] public AudioManagerEnvironmentS _AudioManagerEnvironmentS;
     [SerializeField] public List<GameObject> _EnvironmentsSounds = new List<GameObject>();
     List<string> _narrativeIds = new List<string>() {
-    "WindowN","SaddnessN","Room2","MarbleLabelN","Introduction","GrammofwnoN","FeatherN","Exit","Entrance","CrossN"
-    };
+    "WindowN","SaddnessN","Room2","MarbleLabelN","Introduction","GrammofwnoN","FeatherN","Exit","Entrance","CrossN"};
+
+    private AudioSource _narrativesAudioSource;
+    private Dictionary<string, Audio> _audioNarratives = new Dictionary<string, Audio>();
+    int count = 0;
     public IEnumerator Initialize()
     {
-        _narrativesAudioSource = GetComponent<AudioSource>();
+         gameObject.AddComponent<AudioSource>();
+        _narrativesAudioSource = gameObject.AddComponent<AudioSource>();
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
         foreach (string id in _narrativeIds)
         {
             if (!string.IsNullOrEmpty(id))
             {
-                yield return AddressablesLoader.InstantiateGameObject(id, (audio) =>
+                yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(id, (audio) =>
                 {
 
                     _audioNarratives.Add(id, new Audio(audio, false));
@@ -52,13 +55,12 @@ public class AudioManager : MonoBehaviour
     {
         if (_audioNarratives.ContainsKey(audioID))
         {
-            Debug.Log("exists");
             _narrativesAudioSource.clip = _audioNarratives[audioID]._AudioClip;
             if (!_audioNarratives[audioID]._AudioHasPlayed)
             {
                 _audioNarratives[audioID]._AudioHasPlayed = true;
                 count++;
-                UIManager._Instance._NarrativesInventory._CountText.text = count.ToString();
+                _ShowAndIncreaseCountText?.Invoke(count);
             }
             if (AreNarrativesCompleted())
             {
@@ -79,7 +81,6 @@ public class AudioManager : MonoBehaviour
         {
             result = true;
         }
-        Debug.LogError(result);
         return result;
     }
     public void Stop(string audioName)

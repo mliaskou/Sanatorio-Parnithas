@@ -1,21 +1,19 @@
 using UnityEngine;
 
-public class LoadingScreen : MonoBehaviour
+public class LoadingScreen
 {
-    public static LoadingScreen s_Instance;
-
-    void Awake()
+    GameObject _loadingScreen;
+   public LoadingScreen(GameObject loadingscreen)
     {
-        if (s_Instance != null && s_Instance != this)
-        {
-            Destroy(this.gameObject);
-            return;//Avoid doing anything else
-        }
-        s_Instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        _loadingScreen = loadingscreen;
     }
     public void SetLoadingScreen(bool status)
     {
-        this.gameObject.SetActive(status);
+        _loadingScreen.SetActive(status);
+    }
+
+    public void DestroyFeature()
+    {
+        UnityEngine.AddressableAssets.Addressables.Release(_loadingScreen);
     }
 }

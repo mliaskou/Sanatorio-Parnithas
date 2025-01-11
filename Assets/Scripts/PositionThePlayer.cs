@@ -1,19 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class PositionThePlayer:MonoBehaviour
 {
     public GameObject position1;
     public GameObject position2;
-    public static bool S_IsLoaded;
-    public void InitializePlayerPosition(GameObject player)
+    private GameObject _player;
+    private Action _resume;
+
+    public void SetDepedencies(GameObject player, Action resume)
     {
-        if (S_IsLoaded)
+        _player = player;
+        _resume = resume;
+    }
+    public IEnumerator InitializePlayerPosition(bool isLoaded)
+    {
+        if (isLoaded)
         {
-            player.transform.position = position1.transform.position;
+            _player.transform.position = position1.transform.position;
+            _resume?.Invoke();
         }
         else
         {
-            player.transform.position = position2.transform.position;
+            _player.transform.position = position2.transform.position;
+            _resume?.Invoke();
         }
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        _resume = null;
     }
 }

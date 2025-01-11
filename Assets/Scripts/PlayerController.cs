@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
     public static int count = 0;
     Color interactabletextcolor = new Color32(255, 95, 8, 255);
-    [SerializeField] private Text txt;
 
     public IEnumerator Initialise(Text interactabletext)
     {
@@ -40,7 +39,7 @@ public class PlayerController : MonoBehaviour
                 {
                     interactableText.gameObject.SetActive(true);
                     CrosshairActive();
-                    Debug.LogError(name);
+
                     soundplay.ShowNarrativeCanvas(name);
                     if (Input.GetKeyDown(KeyCode.E))
                     {

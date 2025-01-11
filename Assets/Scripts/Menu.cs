@@ -1,62 +1,60 @@
 ﻿using System.Collections;
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
+using UnityEngine.AddressableAssets;
 
 public class Menu : MonoBehaviour
 {
-    public static Menu s_Instance;
-    public static bool s_IsLoaded;
-
     public GameObject _ImageCredits;
-    public GameObject _MenuCanvas;
-   
-    public GameObject _LoadingScreen;
     [SerializeField] AudioSource creditsSound;
-    void Awake()
-    {
-        GameObject loading = Instantiate(_LoadingScreen);
-        loading.SetActive(false);
-    }
 
     public void Sanatorio()
     {
-        StartCoroutine(LoadSanatorio());
+        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        StartCoroutine(LoadSanatorio(() =>
+        {
+            UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
+            gameObject.SetActive(false);
+        }));
     }
 
 
     public void ParkofSouls()
     {
-        StartCoroutine(LoadParkOfSouls());
-
+        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        StartCoroutine(LoadParkOfSouls(() =>
+        {
+            UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
+            gameObject.SetActive(false);
+        }));
     }
-    IEnumerator LoadSanatorio()
+
+    IEnumerator LoadSanatorio(Action onComplete)
     {
-        LoadingScreen.s_Instance.SetLoadingScreen(true);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SampleScene");
-        PositionThePlayer.S_IsLoaded = true;
-        asyncLoad.completed += (AsyncOperation) =>
-        {      
-            LoadingScreen.s_Instance.SetLoadingScreen(false);
-        };
+        yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(true);
+        onComplete?.Invoke();
         yield return null;
     }
 
 
-    IEnumerator LoadParkOfSouls()
+    IEnumerator LoadParkOfSouls(Action onComplete)
     {
-        LoadingScreen.s_Instance.SetLoadingScreen(true);
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("SampleScene");
-        PositionThePlayer.S_IsLoaded = false;
-        asyncLoad.completed += (AsyncOperation) =>
-        {       
-            LoadingScreen.s_Instance.SetLoadingScreen(false);
-        };
+        yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(false);
+        onComplete?.Invoke();
         yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        UnityEngine.AddressableAssets.Addressables.Release(gameObject);
     }
 
     public void ApplicationQuit()
     {
         Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void ShowCredits()
