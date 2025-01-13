@@ -35,15 +35,14 @@ public class PlayerController : MonoBehaviour
                 string name = raycastedObj.name;
                 float distance = Vector3.Distance(raycastedObj.gameObject.transform.position, transform.position);
                 soundplay = raycastedObj.GetComponent<SoundPlay>();
-                if (distance < 5f)
-                {
-                    interactableText.gameObject.SetActive(true);
-                    CrosshairActive();
 
-                    soundplay.ShowNarrativeCanvas(name);
+                CrosshairActive();
+                if (distance < 5f)
+                {            
                     if (Input.GetKeyDown(KeyCode.E))
-                    {
+                    {                     
                         soundplay.PlayAudio();
+                        soundplay.ShowNarrativeCanvas(name);
                     }
                 }
             }

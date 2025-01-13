@@ -841,5 +841,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Play: {fileID: 5431910885981117500}
   _Menu: {fileID: 318340258572876721}
-  _Pause: {fileID: 1487575925192579099}
+  _Quit: {fileID: 1487575925192579099}
   _pauseMenu: {fileID: 5594621236066316778}

@@ -9,6 +9,7 @@ public class GameStateManager : MonoBehaviour
     public GameObject player;
     [HideInInspector] public Camera _PlayerCamera;
     public AudioManager _AudioManager;
+    public UIManager _UIManager;
 
     private PlayerController _playerController;
     private FirstPersonController _firstPersonController;
@@ -18,20 +19,21 @@ public class GameStateManager : MonoBehaviour
         _Instance = this;      
     }
     private IEnumerator Start()
-    {       
+    {
+        _UIManager = UIManager._Instance;
          GetComponent<PositionThePlayer>().SetDepedencies(player, Resume);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
         _playerController = player.transform.GetChild(0).GetComponent<PlayerController>();
         _firstPersonController = player.GetComponent<FirstPersonController>();
         Pause();
-        yield return UIManager._Instance.Initialize();
+        yield return _UIManager.Initialize();
         yield return _AudioManager.Initialize();
-        _AudioManager._ShowAndIncreaseCountText = UIManager._Instance.IncreaseAndDisplayCountText;
+        _AudioManager._ShowAndIncreaseCountText = _UIManager.IncreaseAndDisplayCountText;
 
 
-        if (UIManager._Instance._InteractableText!=null)
+        if (_UIManager._InteractableText!=null)
         {
-            yield return _playerController.Initialise(UIManager._Instance._InteractableText);
+            yield return _playerController.Initialise(_UIManager._InteractableText);
         }
         else
         {

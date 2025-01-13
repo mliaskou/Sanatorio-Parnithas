@@ -11,19 +11,18 @@ public class SoundPlay : MonoBehaviour
     }
 
     public void PlayAudio()
-    {    
-        if (GameStateManager._Instance._AudioManager.HasAudio(this.gameObject.name))
+    {
+        if (GameStateManager._Instance._AudioManager.HasAudio(this.name))
         {
-
-            GameStateManager._Instance._AudioManager.Play(this.gameObject.name);
+            GameStateManager._Instance._AudioManager.Play(this.name);
         }
         
     }
     public void StopAudio()
     {
-        if (GameStateManager._Instance._AudioManager.HasAudio(this.gameObject.name))
+        if (GameStateManager._Instance._AudioManager.HasAudio(this.name))
         {
-            GameStateManager._Instance._AudioManager.Stop(this.gameObject.name);
+            GameStateManager._Instance._AudioManager.Stop(this.name);
         }
     }
 }

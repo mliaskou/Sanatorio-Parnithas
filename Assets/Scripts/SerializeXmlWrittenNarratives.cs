@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml;
 
 [Serializable]
+[XmlRoot]
 public class Narrative
 {
     [SerializeField]public string Id = "";

@@ -1,25 +1,31 @@
-using System.Collections.Generic;
+using System;
+using System.Collections;
 using System.IO;
-using System.Text;
-using System.Xml;
 using System.Xml.Serialization;
 using UnityEngine;
 
 public class SaveXml
 {
-    public static ListNarrative DeserializeXml()
+    private TextAsset _narrativeXml;
+    public IEnumerator DeserializeXml(Action<ListNarrative> onComplete)
     {
-        var settings = new XmlReaderSettings
+        yield return AddressablesLoader.InstantiateGeneralAsync<TextAsset>("Narratives", (narrativeXml) =>
         {
-            ConformanceLevel = ConformanceLevel.Auto
-        };
-        string fileName = Path.Combine(Application.dataPath, "Narratives.xml");
-        ListNarrative listnarrative;
-        XmlSerializer serializer = new XmlSerializer(typeof(ListNarrative));
-        using ( XmlReader reader = XmlReader.Create(fileName,settings))
-        {
-            listnarrative = (ListNarrative)serializer.Deserialize(reader);
-        }
-        return listnarrative;
+            _narrativeXml = narrativeXml;
+            string narrativeContent = narrativeXml.text.Trim();
+
+            ListNarrative listnarrative;
+            XmlSerializer serializer = new XmlSerializer(typeof(ListNarrative));
+            using (TextReader reader = new StringReader(narrativeContent)) {
+                listnarrative = (ListNarrative)serializer.Deserialize(reader);
+                onComplete?.Invoke(listnarrative);
+            }
+        });
     }
+
+    public void DestroyFeature()
+    {
+        UnityEngine.AddressableAssets.Addressables.Release(_narrativeXml);
+    }
+
 }

@@ -58,6 +58,7 @@ public class AudioManager : MonoBehaviour
             _narrativesAudioSource.clip = _audioNarratives[audioID]._AudioClip;
             if (!_audioNarratives[audioID]._AudioHasPlayed)
             {
+                
                 _audioNarratives[audioID]._AudioHasPlayed = true;
                 count++;
                 _ShowAndIncreaseCountText?.Invoke(count);

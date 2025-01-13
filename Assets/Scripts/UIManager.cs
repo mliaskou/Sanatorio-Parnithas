@@ -13,12 +13,14 @@ public class UIManager : MonoBehaviour
     public Dictionary<string, string> _NarrativesDict = new Dictionary<string, string>();
     private TMP_Text _NarrativesText;
     private TMP_Text _NarrativesNameText;
+    private SaveXml _saveXml;
     [HideInInspector] public LoadingScreen _LoadingScreen;
 
     GameObject menu;
     GameObject _narrativeCanvas;
     NarrativesInventory _NarrativesInventory;
-    GameObject _NarrativeInventoryGameObject;
+
+    public GameObject _NarrativeInventoryGameObject;
 
     [Header("Player")]
     public Text _InteractableText;
@@ -60,15 +62,18 @@ public class UIManager : MonoBehaviour
             gameObject.transform.SetParent(gameObject.transform, false);
             gameObject.SetActive(false);
             _NarrativeInventoryGameObject = gameObject;
+            _NarrativeInventoryGameObject.transform.SetParent(this.transform, false);
             _NarrativesInventory = _NarrativeInventoryGameObject.GetComponent<NarrativesInventory>();
             _NarrativesNameText = _NarrativesInventory._NarrativesNameText;
         });
-
-        ListNarrative listNarrative = SaveXml.DeserializeXml();
-        foreach (Narrative narrative in listNarrative.Narratives)
-        {
-            _NarrativesDict.Add(narrative.Id, narrative.Description);
-        }
+        _saveXml = new SaveXml();
+        yield return  _saveXml.DeserializeXml((listNarrative)=> {
+            foreach (Narrative narrative in listNarrative.Narratives)
+            {
+                _NarrativesDict.Add(narrative.Id, narrative.Description);
+            }
+        });
+       
         _NarrativesText = _narrativeCanvas.GetComponent<NarrativesText>()._NarrativesText;
         _ShowNarrativeCanvas = ShowNarrativeCanvas;
         yield return null;
@@ -76,9 +81,14 @@ public class UIManager : MonoBehaviour
     public void ShowNarrativeCanvas(GameObject go, string name)
     {
         _NarrativesNameText.text = name;
+        Debug.LogError(_NarrativesDict.Count);
 
+        foreach (string id in _NarrativesDict.Keys)
+        {
+            Debug.LogError(id);
+        }
         _NarrativesNameText.gameObject.SetActive(true);
-        if (_NarrativesDict.ContainsKey(go.name))
+        if (_NarrativesDict.ContainsKey(name))
         {
             _narrativeCanvas.transform.SetParent(go.transform, false);
             _NarrativesText.text = _NarrativesDict[go.name];
@@ -86,6 +96,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
+            Debug.LogError(go.name);
             _narrativeCanvas.SetActive(false);
         }
         _narrativeCanvas.transform.LookAt(_narrativeCanvas.transform.position + GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.forward, GameStateManager._Instance._PlayerCamera.transform.rotation * Vector3.up);
@@ -101,6 +112,8 @@ public class UIManager : MonoBehaviour
         UnityEngine.AddressableAssets.Addressables.Release(_narrativeCanvas);
         UnityEngine.AddressableAssets.Addressables.Release(_NarrativeInventoryGameObject);
         _LoadingScreen.DestroyFeature();
+        _saveXml.DestroyFeature();
+        _saveXml = null;
         _NarrativesDict.Clear();
         _ShowNarrativeCanvas = null;
         _Instance = null;

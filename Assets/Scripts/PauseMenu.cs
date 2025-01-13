@@ -7,7 +7,7 @@ public class PauseMenu:MonoBehaviour
     private GameObject _menu;
     public Button _Play;
     public Button _Menu;
-    public Button _Pause;
+    public Button _Quit;
     [SerializeField] GameObject _pauseMenu;
 
     void Update()
@@ -26,14 +26,15 @@ public class PauseMenu:MonoBehaviour
             Resume();
         });
 
-        _Pause.onClick.AddListener(() =>
-        {
-            Pause();
-        });
-
         _Menu.onClick.AddListener(() =>
         {
             Menu();
+        });
+
+        _Quit.onClick.AddListener(() =>
+        
+        {
+            Quit();
         });
     }
     public void Pause()
