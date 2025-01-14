@@ -25,12 +25,19 @@ public static class AddressablesLoader
         AsyncOperationHandle<GameObject> opHandle;
         opHandle = Addressables.InstantiateAsync(key);
         yield return opHandle;
-
+    
         if (opHandle.Status == AsyncOperationStatus.Succeeded)
         {
             Debug.LogError("succeedeed");
             GameObject obj = opHandle.Result;
             onComplete?.Invoke(obj);
         }
+    }
+
+    public static void InstantiateSyncGameObject(string key, Action<GameObject> onComplete)
+    {
+        var op = Addressables.LoadAssetAsync<GameObject>(key);
+        GameObject go = op.WaitForCompletion();
+        onComplete?.Invoke(go);
     }
 }

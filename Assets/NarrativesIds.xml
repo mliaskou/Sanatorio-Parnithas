@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<NarrativeIds xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NarrativeIdsList>
+    <string>WindowN</string>
+    <string>SaddnessN</string>
+    <string>Room2</string>
+    <string>MarbleLabelN</string>
+    <string>Introduction</string>
+    <string>GrammofwnoN</string>
+    <string>FeatherN</string>
+    <string>Exit</string>
+    <string>Entrance</string>
+    <string>CrossN</string>
+  </NarrativeIdsList>
+</NarrativeIds>

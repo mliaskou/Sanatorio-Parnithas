@@ -30,10 +30,18 @@ public class ListNarrative
   [HideInInspector] [SerializeField] public List<Narrative> Narratives = new List<Narrative>();
 }
 
+[XmlRoot]
+[Serializable]
+public class NarrativeIds
+{
+    [HideInInspector] [SerializeField] public List<string> NarrativeIdsList = new List<string>();
+}
+
 public class SerializeXmlWrittenNarratives: MonoBehaviour
 {
     string fileName = "";
     public List<Narrative> narratives = new List<Narrative>();
+    public List<string> narrativesIds = new List<string>();
     public string introduction = "Εισαγωγή-Αφήγηση";
     public string entrance = "Το σώμα του φυματικού αναπαύεται σε μια λευκή χιονισμένη κορυφή. Το πνεύμα του απολαμβάνει το απόλυτο που έχει εισβάλει στη ζωή του: τον τέλειο 'ερωτα, την ιδανική γυναίκα, τη λύτρωση από τον πόνο. Αυτή είναι η ύλη της Εαρινής Συμφωνίας, ποιήματος ενός ζεύγος θνητών";
     public string room2N = "Νομίζω πως ο άνθρωπος που δεν τιμωρήθηκε ποτέ στη ζωή του, δεν ξέρει τι σημαίνει παραβίαση της απαγόρευσης. Και επειδή η ζωή είναι γεμάτη απογοητεύσεις, έμαθα να δουλεύω την ποίηση ξεπερνώντας 'τες";
@@ -66,6 +74,35 @@ public class SerializeXmlWrittenNarratives: MonoBehaviour
         using (var stream = XmlWriter.Create(fileName,settings))
         {
             serializer.Serialize(stream, listNarrative);
+        }
+    }
+
+    [ContextMenu("CreateXmlNarrativesIds")]
+    public void CreateXmlNarrativesIds()
+    {
+        fileName = Path.Combine(Application.dataPath, "NarrativesIds.xml");
+        NarrativeIds _narrativeIds= new NarrativeIds();
+        narrativesIds.Clear();
+        narrativesIds.Add("WindowN");
+        narrativesIds.Add("SaddnessN");
+        narrativesIds.Add("Room2");
+        narrativesIds.Add("MarbleLabelN");
+        narrativesIds.Add("Introduction");
+        narrativesIds.Add("GrammofwnoN");
+        narrativesIds.Add("FeatherN");
+        narrativesIds.Add("Exit");
+        narrativesIds.Add("Entrance");
+        narrativesIds.Add("CrossN");
+        _narrativeIds.NarrativeIdsList = narrativesIds;
+        var settings = new XmlWriterSettings
+        {
+            Encoding = Encoding.UTF8,
+            Indent = true
+        };
+        XmlSerializer serializer = new XmlSerializer(typeof(NarrativeIds));
+        using (var stream = XmlWriter.Create(fileName, settings))
+        {
+            serializer.Serialize(stream, _narrativeIds);
         }
     }
 }

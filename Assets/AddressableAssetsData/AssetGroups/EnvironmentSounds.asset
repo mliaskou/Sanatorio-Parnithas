@@ -10,20 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Xmlfiles
+  m_Name: EnvironmentSounds
   m_EditorClassIdentifier: 
-  m_GroupName: Xmlfiles
+  m_GroupName: EnvironmentSounds
   m_Data:
     m_SerializedData: []
-  m_GUID: 8e969456602f71242a0b7c3b721fba54
+  m_GUID: 1f12aba556b4bba44a3c45d6bb115130
   m_SerializeEntries:
-  - m_GUID: 26b724114fdb2744bab627bbaa040cbb
-    m_Address: Narratives
+  - m_GUID: efa80976f18299947b0d9684ee4e3437
+    m_Address: ParkOfSoulsS
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4cc049336600bf9409f6180c1a792126
-    m_Address: NarrativesIds
+  - m_GUID: afef112a1da20814fb2e76bd3380852c
+    m_Address: SanatorioS
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16ce386e303648848937781f067965ed
+    m_Address: SoloS
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -31,5 +36,5 @@ MonoBehaviour:
   m_Settings: {fileID: 11400000, guid: a096b3ff828d2bf42a93831da28366c8, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: f041c1dd7e8a6994eaa7f56c1d3df2ea, type: 2}
-    - {fileID: 11400000, guid: 96645e4f41e7a084aab4f6a9967bc5ba, type: 2}
+    - {fileID: 11400000, guid: 12c2cb8821b76724d9831aa7eb516d9e, type: 2}
+    - {fileID: 11400000, guid: 89e19fa2ed579834f819e953689aa982, type: 2}

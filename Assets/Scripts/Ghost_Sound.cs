@@ -6,7 +6,7 @@ public class Ghost_Sound : MonoBehaviour
     private AudioSource audioSource;
     public void Initialize(AudioClip audio)
     {
-        audioSource = this.GetComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = audio;
     }
     private void OnTriggerEnter(Collider other)

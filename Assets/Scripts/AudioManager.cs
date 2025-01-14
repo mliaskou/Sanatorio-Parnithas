@@ -20,8 +20,7 @@ public class AudioManager : MonoBehaviour
 
     [HideInInspector] public AudioManagerEnvironmentS _AudioManagerEnvironmentS;
     [SerializeField] public List<GameObject> _EnvironmentsSounds = new List<GameObject>();
-    List<string> _narrativeIds = new List<string>() {
-    "WindowN","SaddnessN","Room2","MarbleLabelN","Introduction","GrammofwnoN","FeatherN","Exit","Entrance","CrossN"};
+    List<string> _narrativeIds = new List<string>();
 
     private AudioSource _narrativesAudioSource;
     private Dictionary<string, Audio> _audioNarratives = new Dictionary<string, Audio>();
@@ -31,13 +30,16 @@ public class AudioManager : MonoBehaviour
          gameObject.AddComponent<AudioSource>();
         _narrativesAudioSource = gameObject.AddComponent<AudioSource>();
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
+
+        yield return UIManager._Instance._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {
+            _narrativeIds = narrativeIdsXml.NarrativeIdsList;
+        });
         foreach (string id in _narrativeIds)
         {
             if (!string.IsNullOrEmpty(id))
             {
                 yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(id, (audio) =>
                 {
-
                     _audioNarratives.Add(id, new Audio(audio, false));
                 });
             }
@@ -57,8 +59,7 @@ public class AudioManager : MonoBehaviour
         {
             _narrativesAudioSource.clip = _audioNarratives[audioID]._AudioClip;
             if (!_audioNarratives[audioID]._AudioHasPlayed)
-            {
-                
+            {                
                 _audioNarratives[audioID]._AudioHasPlayed = true;
                 count++;
                 _ShowAndIncreaseCountText?.Invoke(count);

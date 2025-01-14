@@ -1,23 +1,24 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using UnityEngine;
 
 public class SaveXml
 {
-    private TextAsset _narrativeXml;
-    public IEnumerator DeserializeXml(Action<ListNarrative> onComplete)
+    private List<TextAsset> _narrativeXmlList= new List<TextAsset>();
+    public IEnumerator DeserializeXml<T>(string xmlName, Action<T> onComplete)where T:class
     {
-        yield return AddressablesLoader.InstantiateGeneralAsync<TextAsset>("Narratives", (narrativeXml) =>
+        yield return AddressablesLoader.InstantiateGeneralAsync<TextAsset>(xmlName, (narrativeXml) =>
         {
-            _narrativeXml = narrativeXml;
+            _narrativeXmlList.Add(narrativeXml);
             string narrativeContent = narrativeXml.text.Trim();
 
-            ListNarrative listnarrative;
-            XmlSerializer serializer = new XmlSerializer(typeof(ListNarrative));
+            T listnarrative;
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
             using (TextReader reader = new StringReader(narrativeContent)) {
-                listnarrative = (ListNarrative)serializer.Deserialize(reader);
+                listnarrative = (T)serializer.Deserialize(reader);
                 onComplete?.Invoke(listnarrative);
             }
         });
@@ -25,7 +26,9 @@ public class SaveXml
 
     public void DestroyFeature()
     {
-        UnityEngine.AddressableAssets.Addressables.Release(_narrativeXml);
+        foreach(TextAsset xml in _narrativeXmlList)
+        {
+            UnityEngine.AddressableAssets.Addressables.Release(xml);
+        }      
     }
-
 }
