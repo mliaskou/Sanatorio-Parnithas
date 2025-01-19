@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System;
-using UnityEngine.AddressableAssets;
 
 public class Menu : MonoBehaviour
 {
     public GameObject _ImageCredits;
+    public GameObject _MenuHolder;
     [SerializeField] AudioSource creditsSound;
 
     public void Sanatorio()
     {
-        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadSanatorio(() =>
         {
-            UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
+            GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
     }
@@ -21,10 +21,10 @@ public class Menu : MonoBehaviour
 
     public void ParkofSouls()
     {
-        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadParkOfSouls(() =>
         {
-            UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
+            GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
     }
@@ -32,7 +32,7 @@ public class Menu : MonoBehaviour
     IEnumerator LoadSanatorio(Action onComplete)
     {
         yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(true);
-        UIManager._Instance._NarrativeInventoryGameObject.SetActive(true);
+        GameStateManager._Instance._UIManager._NarrativeInventoryGameObject.SetActive(true);
         onComplete?.Invoke();
         yield return null;
     }
@@ -41,7 +41,7 @@ public class Menu : MonoBehaviour
     IEnumerator LoadParkOfSouls(Action onComplete)
     {
         yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(false);
-        UIManager._Instance._NarrativeInventoryGameObject.SetActive(true);
+        GameStateManager._Instance._UIManager._NarrativeInventoryGameObject.SetActive(true);
         onComplete?.Invoke();
         yield return null;
     }
@@ -62,11 +62,13 @@ public class Menu : MonoBehaviour
     public void ShowCredits()
     {
         _ImageCredits.SetActive(true);
+        _MenuHolder.SetActive(false);
     }
 
     public void CloseImage()
     {
         _ImageCredits.SetActive(false);
+        _MenuHolder.SetActive(true);
     }
 
 

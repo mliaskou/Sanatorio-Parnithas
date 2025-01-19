@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
         _narrativesAudioSource = gameObject.AddComponent<AudioSource>();
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
 
-        yield return UIManager._Instance._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {
+        yield return GameStateManager._Instance._UIManager._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {
             _narrativeIds = narrativeIdsXml.NarrativeIdsList;
         });
         foreach (string id in _narrativeIds)

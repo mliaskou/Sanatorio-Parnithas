@@ -7,7 +7,7 @@ public class SoundPlay : MonoBehaviour
 
     public void ShowNarrativeCanvas(string name)
     {
-        UIManager._Instance._ShowNarrativeCanvas?.Invoke(this.gameObject,name);
+        GameStateManager._Instance._UIManager._ShowNarrativeCanvas?.Invoke(this.gameObject,name);
     }
 
     public void PlayAudio()

@@ -1,7 +1,6 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
 
-
 public class PauseMenu:MonoBehaviour
 {
     private GameObject _menu;
@@ -51,10 +50,10 @@ public class PauseMenu:MonoBehaviour
     }
     public void Menu()
     {
-        UIManager._Instance._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
         _menu.SetActive(true);
         HideMenu();
-        UIManager._Instance._LoadingScreen.SetLoadingScreen(false);
+        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
     }
 
     public void Quit()

@@ -2,13 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 using System.Collections;
 
-public class UIManager : MonoBehaviour
+public class UIManager
 {
-    public static UIManager _Instance;
-
     public Action<GameObject, string> _ShowNarrativeCanvas;
     public Dictionary<string, string> _NarrativesDict = new Dictionary<string, string>();
     private TMP_Text _NarrativesText;
@@ -19,20 +16,26 @@ public class UIManager : MonoBehaviour
     GameObject menu;
     GameObject _narrativeCanvas;
     NarrativesInventory _NarrativesInventory;
+    GameObject _uiCanvas;
 
     [HideInInspector] public GameObject _NarrativeInventoryGameObject;
 
     [Header("Player")]
-    public Text _InteractableText;
+    [HideInInspector] public GameObject _interactable;
 
-    private void Awake()
+    public UIManager(GameObject uiCanvas)
     {
-        _Instance = this;
+        _uiCanvas = uiCanvas;
     }
-
     public IEnumerator Initialize()
     {
-         AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
+
+        yield return AddressablesLoader.InstantiateGameObject("Interactable", (gameObject) =>
+        {
+            _interactable = gameObject;
+            _interactable.transform.SetParent(_uiCanvas.transform, false);
+        });
+        AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
         {
             _LoadingScreen = new LoadingScreen(gameObject);
         });
@@ -46,7 +49,7 @@ public class UIManager : MonoBehaviour
 
         yield return AddressablesLoader.InstantiateGameObject("PauseMenuHolder", (gameObject) => {
 
-            gameObject.transform.SetParent(this.transform, false);
+            gameObject.transform.SetParent(_uiCanvas.transform, false);
             gameObject.GetComponent<PauseMenu>().Initialise(menu);
         });
 
@@ -62,7 +65,7 @@ public class UIManager : MonoBehaviour
             gameObject.transform.SetParent(gameObject.transform, false);
             gameObject.SetActive(false);
             _NarrativeInventoryGameObject = gameObject;
-            _NarrativeInventoryGameObject.transform.SetParent(this.transform, false);
+            _NarrativeInventoryGameObject.transform.SetParent(_uiCanvas.transform, false);
             _NarrativesInventory = _NarrativeInventoryGameObject.GetComponent<NarrativesInventory>();
             _NarrativesNameText = _NarrativesInventory._NarrativesNameText;
         });
@@ -109,6 +112,5 @@ public class UIManager : MonoBehaviour
         _SaveXml = null;
         _NarrativesDict.Clear();
         _ShowNarrativeCanvas = null;
-        _Instance = null;
     }
 }

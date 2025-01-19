@@ -8,17 +8,17 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private int rayLength = 10;
     [SerializeField] private LayerMask layerMaskInteract;
-    [SerializeField] private Image uiCrosshair;
+    
+    
+    Image _interactableImage;
     Text interactableText;
-
     SoundPlay soundplay;
-
-    public static int count = 0;
     Color interactabletextcolor = new Color32(255, 95, 8, 255);
 
-    public IEnumerator Initialise(Text interactabletext)
+    public IEnumerator Initialise(Text interactabletext, Image interactableImage)
     {
         interactableText = interactabletext;
+        _interactableImage = interactableImage;
         yield return null;
     }
 
@@ -50,7 +50,10 @@ public class PlayerController : MonoBehaviour
 
         else
         {
-            CrosshairNormal();
+            if (_interactableImage != null)
+            {
+                CrosshairNormal();
+            }       
         }
 
         if (raycastedObj != null)
@@ -67,12 +70,12 @@ public class PlayerController : MonoBehaviour
 
     void CrosshairActive()
     {
-        uiCrosshair.gameObject.SetActive(true);
-        uiCrosshair.color = interactabletextcolor;
+        _interactableImage.gameObject.SetActive(true);
+        _interactableImage.color = interactabletextcolor;
         interactableText.color = interactabletextcolor;
     }
     void CrosshairNormal()
     {
-        uiCrosshair.gameObject.SetActive(false);
+        _interactableImage.gameObject.SetActive(false);
     }
 }

@@ -1,7 +1,6 @@
 ﻿using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -10,10 +9,12 @@ public class GameStateManager : MonoBehaviour
     public GameObject player;
     [HideInInspector] public Camera _PlayerCamera;
     public AudioManager _AudioManager;
-    public UIManager _UIManager;
 
     private PlayerController _playerController;
     private FirstPersonController _firstPersonController;
+
+    private GameObject _uiManagerCanvas;
+    [HideInInspector] public UIManager _UIManager;
 
     private void Awake()
     {
@@ -21,20 +22,24 @@ public class GameStateManager : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        _UIManager = UIManager._Instance;
-         GetComponent<PositionThePlayer>().SetDepedencies(player, Resume);
+        yield return AddressablesLoader.InstantiateGameObject("UIManager", (gameObject) =>
+        {
+            _uiManagerCanvas = gameObject;           
+        });
+        GetComponent<PositionThePlayer>().SetDepedencies(player, Resume);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
         _playerController = player.transform.GetChild(0).GetComponent<PlayerController>();
         _firstPersonController = player.GetComponent<FirstPersonController>();
         Pause();
+        _UIManager = new UIManager(_uiManagerCanvas);
         yield return _UIManager.Initialize();
         yield return _AudioManager.Initialize();
         _AudioManager._ShowAndIncreaseCountText = _UIManager.IncreaseAndDisplayCountText;
 
 
-        if (_UIManager._InteractableText!=null)
+        if (_UIManager._interactable!=null)
         {
-            yield return _playerController.Initialise(_UIManager._InteractableText);
+            yield return _playerController.Initialise(_UIManager._interactable.GetComponent<InteractableReferencies>()._InteractableText, _UIManager._interactable.GetComponent<InteractableReferencies>()._InteractableImage);
         }
         else
         {
@@ -59,6 +64,7 @@ public class GameStateManager : MonoBehaviour
     public IEnumerator DestroyFeature()
     {
         yield return _AudioManager.DestroyFeature();
+        UnityEngine.AddressableAssets.Addressables.Release(_uiManagerCanvas);
         _AudioManager._ShowAndIncreaseCountText = null;
         _AudioManager = null;
         S_isPaused = false;
