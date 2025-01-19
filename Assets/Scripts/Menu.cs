@@ -10,10 +10,10 @@ public class Menu : MonoBehaviour
 
     public void Sanatorio()
     {
-        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadSanatorio(() =>
         {
-            GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
+            GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
     }
@@ -21,10 +21,10 @@ public class Menu : MonoBehaviour
 
     public void ParkofSouls()
     {
-        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadParkOfSouls(() =>
         {
-            GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
+            GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
     }

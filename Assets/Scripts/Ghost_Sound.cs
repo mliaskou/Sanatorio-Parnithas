@@ -11,10 +11,6 @@ public class Ghost_Sound : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (audioSource == null)
-        {
-            audioSource = this.GetComponent<AudioSource>();
-        }
         if (other.CompareTag("Player"))
         {
             if (audioSource.GetComponent<AudioSource>().clip != null)

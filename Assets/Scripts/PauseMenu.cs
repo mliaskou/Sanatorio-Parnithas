@@ -50,10 +50,10 @@ public class PauseMenu:MonoBehaviour
     }
     public void Menu()
     {
-        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(true);
+        GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
         _menu.SetActive(true);
         HideMenu();
-        GameStateManager._Instance._UIManager._LoadingScreen.SetLoadingScreen(false);
+        GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
     }
 
     public void Quit()

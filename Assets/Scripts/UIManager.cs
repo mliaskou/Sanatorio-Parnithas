@@ -11,7 +11,6 @@ public class UIManager
     private TMP_Text _NarrativesText;
     private TMP_Text _NarrativesNameText;
     [HideInInspector] public SaveXml _SaveXml;
-    [HideInInspector] public LoadingScreen _LoadingScreen;
 
     GameObject menu;
     GameObject _narrativeCanvas;
@@ -31,20 +30,18 @@ public class UIManager
     {
 
         yield return AddressablesLoader.InstantiateGameObject("Interactable", (gameObject) =>
-        {
+        {           
             _interactable = gameObject;
+            _interactable.gameObject.SetActive(false);
             _interactable.transform.SetParent(_uiCanvas.transform, false);
         });
-        AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
-        {
-            _LoadingScreen = new LoadingScreen(gameObject);
-        });
+    
 
         yield return AddressablesLoader.InstantiateGameObject("menu", (gameObject) =>
         {
             menu = gameObject;
             menu.transform.SetAsLastSibling();
-            _LoadingScreen.SetLoadingScreen(false);
+            GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
         });
 
         yield return AddressablesLoader.InstantiateGameObject("PauseMenuHolder", (gameObject) => {
@@ -107,7 +104,7 @@ public class UIManager
     {
         UnityEngine.AddressableAssets.Addressables.Release(_narrativeCanvas);
         UnityEngine.AddressableAssets.Addressables.Release(_NarrativeInventoryGameObject);
-        _LoadingScreen.DestroyFeature();
+        GameStateManager._Instance._LoadingScreen.DestroyFeature();
         _SaveXml.DestroyFeature();
         _SaveXml = null;
         _NarrativesDict.Clear();

@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class GameStateManager : MonoBehaviour
 {
     public static GameStateManager _Instance;
@@ -14,11 +15,16 @@ public class GameStateManager : MonoBehaviour
     private FirstPersonController _firstPersonController;
 
     private GameObject _uiManagerCanvas;
+    [HideInInspector] public LoadingScreen _LoadingScreen;
     [HideInInspector] public UIManager _UIManager;
 
     private void Awake()
     {
-        _Instance = this;      
+        _Instance = this;
+        AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
+        {
+            _LoadingScreen = new LoadingScreen(Instantiate(gameObject));
+        });
     }
     private IEnumerator Start()
     {
@@ -39,7 +45,7 @@ public class GameStateManager : MonoBehaviour
 
         if (_UIManager._interactable!=null)
         {
-            yield return _playerController.Initialise(_UIManager._interactable.GetComponent<InteractableReferencies>()._InteractableText, _UIManager._interactable.GetComponent<InteractableReferencies>()._InteractableImage);
+            yield return _playerController.Initialise(_UIManager._interactable);
         }
         else
         {
@@ -64,6 +70,7 @@ public class GameStateManager : MonoBehaviour
     public IEnumerator DestroyFeature()
     {
         yield return _AudioManager.DestroyFeature();
+        UnityEngine.AddressableAssets.Addressables.Release(_uiManagerCanvas);
         UnityEngine.AddressableAssets.Addressables.Release(_uiManagerCanvas);
         _AudioManager._ShowAndIncreaseCountText = null;
         _AudioManager = null;

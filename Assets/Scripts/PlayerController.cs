@@ -15,10 +15,11 @@ public class PlayerController : MonoBehaviour
     SoundPlay soundplay;
     Color interactabletextcolor = new Color32(255, 95, 8, 255);
 
-    public IEnumerator Initialise(Text interactabletext, Image interactableImage)
+    public IEnumerator Initialise(GameObject interactable)
     {
-        interactableText = interactabletext;
-        _interactableImage = interactableImage;
+        interactable.SetActive(true);
+        interactableText = interactable.GetComponent<InteractableReferencies>()._InteractableText;
+        _interactableImage = interactable.GetComponent<InteractableReferencies>()._InteractableImage;
         yield return null;
     }
 
