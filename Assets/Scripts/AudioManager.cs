@@ -14,12 +14,11 @@ public class Audio
         _AudioHasPlayed = audioHasPlayed;
     }
 }
-public class AudioManager : MonoBehaviour
+public class AudioManager
 {
     public Action<int> _ShowAndIncreaseCountText;
 
     [HideInInspector] public AudioManagerEnvironmentS _AudioManagerEnvironmentS;
-    [SerializeField] public List<GameObject> _EnvironmentsSounds = new List<GameObject>();
     List<string> _narrativeIds = new List<string>();
 
     private AudioSource _narrativesAudioSource;
@@ -27,8 +26,7 @@ public class AudioManager : MonoBehaviour
     int count = 0;
     public IEnumerator Initialize()
     {
-         gameObject.AddComponent<AudioSource>();
-        _narrativesAudioSource = gameObject.AddComponent<AudioSource>();
+        _narrativesAudioSource = GameStateManager._Instance.gameObject.AddComponent<AudioSource>();
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
 
         yield return GameStateManager._Instance._UIManager._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {
@@ -49,7 +47,7 @@ public class AudioManager : MonoBehaviour
             }
         }
         
-        yield return _AudioManagerEnvironmentS.Initialize(_EnvironmentsSounds);
+        yield return _AudioManagerEnvironmentS.Initialize();
         yield return null;
     }
 

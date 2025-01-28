@@ -4,28 +4,40 @@
 public class Ghost_Sound : MonoBehaviour
 {
     private AudioSource audioSource;
-    public void Initialize(AudioClip audio)
-    {
-        audioSource = gameObject.GetComponent<AudioSource>();
-        audioSource.clip = audio;
-    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (audioSource.GetComponent<AudioSource>().clip != null)
+            if (audioSource != null)
             {
-                audioSource.Play();
+                GetAndPlayAudioClip();
             }
             else
             {
-                Debug.LogError("Audio clip is null");
+                Debug.LogError("Audio clip is null, get audiosource and audioclip");
+                audioSource = GetComponent<AudioSource>();
+                GetAndPlayAudioClip();               
             }
+        }
+    }
+
+    private void GetAndPlayAudioClip() {
+
+        if (audioSource.clip != null)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            audioSource.clip = GameStateManager._Instance._AudioManager._AudioManagerEnvironmentS.spatialSounds[gameObject.name];
+            audioSource.Play();
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
+        {
             if (audioSource.GetComponent<AudioSource>().clip != null)
             {
                 audioSource.Stop();
@@ -34,5 +46,6 @@ public class Ghost_Sound : MonoBehaviour
             {
                 Debug.LogError("Audio clip is null");
             }
+        }        
     }
 }

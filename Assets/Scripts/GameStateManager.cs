@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     public static bool S_isPaused = false;
     public GameObject player;
     [HideInInspector] public Camera _PlayerCamera;
-    public AudioManager _AudioManager;
+    [HideInInspector] public AudioManager _AudioManager;
 
     private PlayerController _playerController;
     private FirstPersonController _firstPersonController;
@@ -39,6 +39,7 @@ public class GameStateManager : MonoBehaviour
         Pause();
         _UIManager = new UIManager(_uiManagerCanvas);
         yield return _UIManager.Initialize();
+        _AudioManager = new AudioManager();
         yield return _AudioManager.Initialize();
         _AudioManager._ShowAndIncreaseCountText = _UIManager.IncreaseAndDisplayCountText;
 

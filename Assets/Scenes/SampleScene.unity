@@ -10888,55 +10888,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: -1
   m_Mesh: {fileID: -7133521204521878831, guid: 93f4488328a954f46830fb8ff6d6c0d2, type: 3}
---- !u!1 &544521257
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 544521260}
-  - component: {fileID: 544521259}
-  m_Layer: 0
-  m_Name: AudioManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &544521259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 544521257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89a824de057798489cb0bf8a1cea1ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _EnvironmentsSounds:
-  - {fileID: 579558776}
-  - {fileID: 792090771}
-  - {fileID: 450218007}
-  - {fileID: 1310729423}
---- !u!4 &544521260
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 544521257}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -843.43787, y: 88.41739, z: -453.81888}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &546491046
 GameObject:
   m_ObjectHideFlags: 0
@@ -14679,7 +14630,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4216974903349286747}
   _PlayerCamera: {fileID: 0}
-  _AudioManager: {fileID: 544521259}
 --- !u!1 &1420563267
 GameObject:
   m_ObjectHideFlags: 0
@@ -25846,7 +25796,6 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 1315397922}
   - {fileID: 1419616208}
-  - {fileID: 544521260}
   - {fileID: 8533209826081115456}
   - {fileID: 5006512735538910971}
   - {fileID: 9112694875148203216}

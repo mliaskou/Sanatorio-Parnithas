@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class AudioManagerEnvironmentS
 {
-    List<AudioClip> spatialSounds;
-    public IEnumerator Initialize(List<GameObject> environmentsSounds)
+    [HideInInspector] public Dictionary<string,AudioClip> spatialSounds= new Dictionary<string, AudioClip>();
+    List<string> _spatialSoundsNames = new() {"ParkOfSoulsS","SanatorioS","SoloS"};
+    public IEnumerator Initialize()
     {
-        spatialSounds = new List<AudioClip>();
 
-        foreach (GameObject go in environmentsSounds)
+        foreach (string spatialSoundName in _spatialSoundsNames)
         {
-            yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(go.name, onComplete: (audioClip) => {
-                go.GetComponent<Ghost_Sound>().Initialize(audioClip);
-                spatialSounds.Add(audioClip);
+            yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(spatialSoundName, onComplete: (audioClip) => {
+
+                spatialSounds.Add(spatialSoundName,audioClip);
             });
         }
 
@@ -22,9 +22,12 @@ public class AudioManagerEnvironmentS
 
     public IEnumerator DestroyFeature()
     {
-        for (int i = spatialSounds.Count - 1; i >= 0; i++)
+        foreach (KeyValuePair<string,AudioClip> spatialSound in spatialSounds)
         {
-            UnityEngine.Object.Destroy(spatialSounds[i]);
+            if (spatialSound.Value != null)
+            {
+                UnityEngine.AddressableAssets.Addressables.Release(spatialSound.Value);
+            }           
         }
         yield return null;
     }
