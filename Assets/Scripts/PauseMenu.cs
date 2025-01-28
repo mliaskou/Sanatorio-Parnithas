@@ -38,13 +38,11 @@ public class PauseMenu:MonoBehaviour
     }
     public void Pause()
     {
-        Debug.LogError("Pause");
         GameStateManager._Instance.Pause();
         ShowMenu();
     }
     public void Resume()
     {
-        Debug.LogError("Resume");
         GameStateManager._Instance.Resume();
         HideMenu();
     }

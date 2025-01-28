@@ -6,7 +6,7 @@ public class Menu : MonoBehaviour
 {
     public GameObject _ImageCredits;
     public GameObject _MenuHolder;
-    [SerializeField] AudioSource creditsSound;
+    private AudioSource _audioSource;
 
     public void Sanatorio()
     {
@@ -74,12 +74,18 @@ public class Menu : MonoBehaviour
 
     public void CreditSoundPlay()
     {
-        creditsSound.Play();
+        if (_audioSource == null)
+        {
+            _audioSource = GameStateManager._Instance._NarrativeAudioSource;
+            _audioSource.clip = Resources.Load<AudioClip>("Sounds/Trypes");
+        }
+        
+        _audioSource.Play();
     }
 
     public void CreditSoundStop()
     {
-        creditsSound.Stop();
+        _audioSource.Stop();
     }
 }
 

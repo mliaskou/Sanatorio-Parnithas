@@ -26,7 +26,7 @@ public class AudioManager
     int count = 0;
     public IEnumerator Initialize()
     {
-        _narrativesAudioSource = GameStateManager._Instance.gameObject.AddComponent<AudioSource>();
+        _narrativesAudioSource = GameStateManager._Instance._NarrativeAudioSource;
         _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
 
         yield return GameStateManager._Instance._UIManager._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {

@@ -17,6 +17,7 @@ public class GameStateManager : MonoBehaviour
     private GameObject _uiManagerCanvas;
     [HideInInspector] public LoadingScreen _LoadingScreen;
     [HideInInspector] public UIManager _UIManager;
+    [HideInInspector] public AudioSource _NarrativeAudioSource;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class GameStateManager : MonoBehaviour
         {
             _LoadingScreen = new LoadingScreen(Instantiate(gameObject));
         });
+        _NarrativeAudioSource = gameObject.AddComponent<AudioSource>();
     }
     private IEnumerator Start()
     {
