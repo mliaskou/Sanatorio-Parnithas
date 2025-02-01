@@ -1,7 +1,4 @@
-﻿
-using System;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class ghost_move : MonoBehaviour

@@ -3,8 +3,6 @@
 
 public class SoundPlay : MonoBehaviour
 {
-    public int count;
-
     public void ShowNarrativeCanvas(string name)
     {
         GameStateManager._Instance._UIManager._ShowNarrativeCanvas?.Invoke(this.gameObject,name);
