@@ -283,7 +283,7 @@ GameObject:
   - component: {fileID: 108391683}
   - component: {fileID: 108391682}
   - component: {fileID: 108391681}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Exit
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -5453,7 +5453,7 @@ GameObject:
   - component: {fileID: 340809729}
   - component: {fileID: 340809728}
   - component: {fileID: 340809732}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Room3
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -14094,7 +14094,7 @@ GameObject:
   - component: {fileID: 1391918227}
   - component: {fileID: 1391918225}
   - component: {fileID: 1391918230}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Introduction
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -14430,7 +14430,7 @@ GameObject:
   - component: {fileID: 1413826852}
   - component: {fileID: 1413826851}
   - component: {fileID: 1413826850}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Room4
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -14895,7 +14895,7 @@ GameObject:
   - component: {fileID: 1570004963}
   - component: {fileID: 1570004962}
   - component: {fileID: 1570004961}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Corridor
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -15349,7 +15349,7 @@ GameObject:
   - component: {fileID: 1858028763}
   - component: {fileID: 1858028761}
   - component: {fileID: 1858028760}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Entrance
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -15751,7 +15751,7 @@ GameObject:
   - component: {fileID: 2018083796}
   - component: {fileID: 2018083795}
   - component: {fileID: 2018083794}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Room2
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -22278,7 +22278,7 @@ GameObject:
   - component: {fileID: 9110191017678675373}
   - component: {fileID: 993225304}
   - component: {fileID: 993225306}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: WindowN
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -22606,7 +22606,7 @@ GameObject:
   - component: {fileID: 2363066446590225232}
   - component: {fileID: 2143876024}
   - component: {fileID: 2143876026}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: CrossN
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -23989,7 +23989,7 @@ GameObject:
   - component: {fileID: 6852125638663872957}
   - component: {fileID: 1753819692}
   - component: {fileID: 5406295991182371805}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SaddnessN
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -24031,7 +24031,7 @@ GameObject:
   - component: {fileID: 7795010739626794296}
   - component: {fileID: 1367572566}
   - component: {fileID: 5410601135510620553}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: MarbleLabelN
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -24529,8 +24529,8 @@ GameObject:
   - component: {fileID: 8695135925590383912}
   - component: {fileID: 6561543206974838041}
   - component: {fileID: 6561543206974838042}
-  m_Layer: 10
-  m_Name: grammofwno
+  m_Layer: 0
+  m_Name: GrammofwnoN
   m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25149,7 +25149,7 @@ GameObject:
   - component: {fileID: 7534120002049533507}
   - component: {fileID: 2040965556}
   - component: {fileID: 2040965558}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: FeatherN
   m_TagString: Audio
   m_Icon: {fileID: 0}
@@ -25462,9 +25462,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayLength: 10
-  layerMaskInteract:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!23 &8695135925590383912
 MeshRenderer:
   m_ObjectHideFlags: 0

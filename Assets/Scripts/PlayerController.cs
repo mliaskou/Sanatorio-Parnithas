@@ -7,9 +7,7 @@ public class PlayerController : MonoBehaviour
     private GameObject raycastedObj;
 
     [SerializeField] private int rayLength = 10;
-    [SerializeField] private LayerMask layerMaskInteract;
-    
-    
+
     Image _interactableImage;
     Text interactableText;
     SoundPlay soundplay;
@@ -28,7 +26,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit hit;
         Vector3 fwd = transform.TransformDirection(Vector3.forward);
 
-        if (Physics.Raycast(transform.position, fwd, out hit, rayLength, layerMaskInteract.value))
+        if (Physics.Raycast(transform.position, fwd, out hit, rayLength))
         {
             if (hit.collider.CompareTag("Audio"))
             {
@@ -38,7 +36,7 @@ public class PlayerController : MonoBehaviour
                 soundplay = raycastedObj.GetComponent<SoundPlay>();
 
                 CrosshairActive();
-                if (distance < 5f)
+                if (distance < 10f)
                 {            
                     if (Input.GetKeyDown(KeyCode.E))
                     {                     
@@ -47,15 +45,16 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+            else
+            {
+                if (_interactableImage != null)
+                {
+                    CrosshairNormal();
+                }
+            }
+
         }
 
-        else
-        {
-            if (_interactableImage != null)
-            {
-                CrosshairNormal();
-            }       
-        }
 
         if (raycastedObj != null)
         {
