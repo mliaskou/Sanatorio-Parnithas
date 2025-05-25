@@ -11,28 +11,34 @@ public class Menu : MonoBehaviour
     public MenuButton _MenuButton;
     [SerializeField] private Transform _close;
     [SerializeField] private Transform _menuHolder;
+    private AudioClip _creditSound;
     public IEnumerator Initialize()
     {
-        GameObject sanatoriumButton = Instantiate(_MenuButton.gameObject, _menuHolder,false);
+        GameObject sanatoriumButton = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         sanatoriumButton.GetComponent<MenuButton>()._button.onClick.AddListener(Sanatorio);
         sanatoriumButton.GetComponent<MenuButton>()._LabelText.text = "Sanatorio";
 
-        GameObject parkOfSouls = Instantiate(_MenuButton.gameObject, _menuHolder,false);
+        GameObject parkOfSouls = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         parkOfSouls.GetComponent<MenuButton>()._button.onClick.AddListener(ParkofSouls);
         parkOfSouls.GetComponent<MenuButton>()._LabelText.text = "Park of Souls";
 
-        GameObject credits = Instantiate(_MenuButton.gameObject, _menuHolder,false);
+        GameObject credits = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         credits.GetComponent<MenuButton>()._button.onClick.AddListener(ShowCredits);
         credits.GetComponent<MenuButton>()._LabelText.text = "Credits";
 
-        GameObject quit = Instantiate(_MenuButton.gameObject, _menuHolder,false);
+        GameObject quit = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         quit.GetComponent<MenuButton>()._button.onClick.AddListener(ApplicationQuit);
         quit.GetComponent<MenuButton>()._LabelText.text = "Quit";
 
-        GameObject closeCredits = Instantiate(_MenuButton.gameObject, _close,false);
+        GameObject closeCredits = Instantiate(_MenuButton.gameObject, _close, false);
         closeCredits.GetComponent<MenuButton>()._button.onClick.AddListener(CloseCredits);
         closeCredits.GetComponent<MenuButton>()._LabelText.fontSize = 20;
         closeCredits.GetComponent<MenuButton>()._LabelText.text = "Close";
+
+        yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>("Trypes", onComplete: (audioClip) =>
+        {
+            _creditSound = audioClip;
+        });
 
         yield return null;
     }
@@ -90,12 +96,14 @@ public class Menu : MonoBehaviour
     public void ShowCredits()
     {
         _ImageCredits.SetActive(true);
+        CreditSoundPlay();
         _MenuHolder.SetActive(false);
     }
 
     public void CloseCredits()
     {
         _ImageCredits.SetActive(false);
+        CreditSoundStop();
         _MenuHolder.SetActive(true);
     }
 
@@ -105,9 +113,9 @@ public class Menu : MonoBehaviour
         if (_audioSource == null)
         {
             _audioSource = GameStateManager._Instance._NarrativeAudioSource;
-            _audioSource.clip = Resources.Load<AudioClip>("Sounds/Trypes");
+            _audioSource.clip = _creditSound;
         }
-        
+
         _audioSource.Play();
     }
 
