@@ -6,7 +6,7 @@ using System;
 
 public static class AddressablesLoader
 {
-    public static IEnumerator InstantiateGeneralAsync<T>(string key, Action<T> onComplete) where T:class
+    public static IEnumerator InstantiateGeneralAsync<T>(string key, Action<T> onComplete, Action<T, AsyncOperationHandle<T>> onDone=null) where T:class
     {
         AsyncOperationHandle<T> opHandle;
         opHandle = Addressables.LoadAssetAsync<T>(key);
@@ -17,6 +17,7 @@ public static class AddressablesLoader
             Debug.LogError("succeedeed");
             T obj = opHandle.Result;
             onComplete?.Invoke(obj);
+            onDone?.Invoke(obj, opHandle);
         }        
     }
 

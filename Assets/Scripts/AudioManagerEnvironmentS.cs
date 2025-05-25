@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class AudioManagerEnvironmentS
 {
@@ -12,7 +13,6 @@ public class AudioManagerEnvironmentS
         foreach (string spatialSoundName in _spatialSoundsNames)
         {
             yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(spatialSoundName, onComplete: (audioClip) => {
-
                 spatialSounds.Add(spatialSoundName,audioClip);
             });
         }
@@ -22,13 +22,16 @@ public class AudioManagerEnvironmentS
 
     public IEnumerator DestroyFeature()
     {
-        foreach (KeyValuePair<string,AudioClip> spatialSound in spatialSounds)
+        foreach (KeyValuePair<string, AudioClip> spatialSound in spatialSounds)
         {
             if (spatialSound.Value != null)
             {
+                Debug.LogError("It is not null");
                 UnityEngine.AddressableAssets.Addressables.Release(spatialSound.Value);
-            }           
+            }
         }
+
+        spatialSounds.Clear();
         yield return null;
     }
 }

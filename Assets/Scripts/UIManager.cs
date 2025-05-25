@@ -41,8 +41,10 @@ public class UIManager
         {
             menu = gameObject;
             menu.transform.SetAsLastSibling();
+
             GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
         });
+        yield return menu.GetComponent<Menu>().Initialize();
 
         yield return AddressablesLoader.InstantiateGameObject("PauseMenuHolder", (gameObject) => {
 
@@ -102,8 +104,8 @@ public class UIManager
 
     public void OnDestroy()
     {
-        UnityEngine.AddressableAssets.Addressables.Release(_narrativeCanvas);
-        UnityEngine.AddressableAssets.Addressables.Release(_NarrativeInventoryGameObject);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(_narrativeCanvas);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(_NarrativeInventoryGameObject);
         GameStateManager._Instance._LoadingScreen.DestroyFeature();
         _SaveXml.DestroyFeature();
         _SaveXml = null;

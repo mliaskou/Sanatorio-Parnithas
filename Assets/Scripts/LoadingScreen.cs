@@ -14,6 +14,6 @@ public class LoadingScreen
 
     public void DestroyFeature()
     {
-        UnityEngine.AddressableAssets.Addressables.Release(_loadingScreen);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(_loadingScreen);
     }
 }

@@ -1,13 +1,35 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour
 {
     public GameObject _ImageCredits;
     public GameObject _MenuHolder;
     private AudioSource _audioSource;
+    [SerializeField] private MenuButton _menuButton;
+    [SerializeField] private Transform _menuHolder;
+    public IEnumerator Initialize()
+    {
+        GameObject sanatoriumButton = Instantiate(_menuButton.gameObject, _menuHolder,false);
+        sanatoriumButton.GetComponent<MenuButton>()._button.onClick.AddListener(Sanatorio);
+        sanatoriumButton.GetComponent<MenuButton>()._LabelText.text = "Sanatorio";
 
+        GameObject parkOfSouls = Instantiate(_menuButton.gameObject, _menuHolder,false);
+        parkOfSouls.GetComponent<MenuButton>()._button.onClick.AddListener(ParkofSouls);
+        parkOfSouls.GetComponent<MenuButton>()._LabelText.text = "Park of Souls";
+
+        GameObject credits = Instantiate(_menuButton.gameObject, _menuHolder,false);
+        credits.GetComponent<MenuButton>()._button.onClick.AddListener(ShowCredits);
+        credits.GetComponent<MenuButton>()._LabelText.text = "Credits";
+
+        GameObject quit = Instantiate(_menuButton.gameObject, _menuHolder,false);
+        quit.GetComponent<MenuButton>()._button.onClick.AddListener(ApplicationQuit);
+        quit.GetComponent<MenuButton>()._LabelText.text = "Quit";
+
+        yield return null;
+    }
     public void Sanatorio()
     {
         GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
@@ -48,7 +70,7 @@ public class Menu : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnityEngine.AddressableAssets.Addressables.Release(gameObject);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(gameObject);
     }
 
     public void ApplicationQuit()

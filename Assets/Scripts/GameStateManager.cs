@@ -15,6 +15,7 @@ public class GameStateManager : MonoBehaviour
     private FirstPersonController _firstPersonController;
 
     private GameObject _uiManagerCanvas;
+    private GameObject _loadingScreen;
     [HideInInspector] public LoadingScreen _LoadingScreen;
     [HideInInspector] public UIManager _UIManager;
     [HideInInspector] public AudioSource _NarrativeAudioSource;
@@ -24,6 +25,7 @@ public class GameStateManager : MonoBehaviour
         _Instance = this;
         AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
         {
+            _loadingScreen=gameObject;
             _LoadingScreen = new LoadingScreen(Instantiate(gameObject));
         });
         _NarrativeAudioSource = gameObject.AddComponent<AudioSource>();
@@ -70,11 +72,10 @@ public class GameStateManager : MonoBehaviour
         S_isPaused = false;
     }
 
-    public IEnumerator DestroyFeature()
+    public void  OnDestroy()
     {
-        yield return _AudioManager.DestroyFeature();
-        UnityEngine.AddressableAssets.Addressables.Release(_uiManagerCanvas);
-        UnityEngine.AddressableAssets.Addressables.Release(_uiManagerCanvas);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(_uiManagerCanvas);
+        UnityEngine.AddressableAssets.Addressables.ReleaseInstance(_loadingScreen);
         _AudioManager._ShowAndIncreaseCountText = null;
         _AudioManager = null;
         S_isPaused = false;

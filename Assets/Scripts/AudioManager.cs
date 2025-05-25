@@ -116,6 +116,7 @@ public class AudioManager
     public IEnumerator DestroyFeature()
     {
         _audioNarratives.Clear();
+        _narrativesAudioSource=null;
         foreach (Audio audio in _audioNarratives.Values)
         {
             UnityEngine.AddressableAssets.Addressables.Release(audio);

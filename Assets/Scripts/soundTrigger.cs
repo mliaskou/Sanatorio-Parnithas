@@ -12,8 +12,6 @@ public class soundTrigger: MonoBehaviour
         if (other.CompareTag ("Player"))
         {
             sanatorio_sound.Play();
-
-
         }
 
 
