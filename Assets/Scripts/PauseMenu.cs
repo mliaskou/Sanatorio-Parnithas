@@ -1,12 +1,12 @@
 ﻿using UnityEngine.UI;
 using UnityEngine;
+using System.Collections;
 
 public class PauseMenu:MonoBehaviour
 {
     private GameObject _menu;
-    public Button _Play;
-    public Button _Menu;
-    public Button _Quit;
+    private Menu _menuScript;
+    [SerializeField] private Transform _pauseMenuParent;
     [SerializeField] GameObject _pauseMenu;
 
     void Update()
@@ -16,25 +16,26 @@ public class PauseMenu:MonoBehaviour
             Pause();
         }
     }
-    public void Initialise(GameObject menu)
+    public IEnumerator Initialise(GameObject menu)
     {
         //Debug.LogError("dgdfgdfg");
         _menu = menu;
-        _Play.onClick.AddListener(() =>
-        {
-            Resume();
-        });
+        _menuScript = menu.GetComponent<Menu>();
+        GameObject resumeButton = Instantiate(_menuScript._MenuButton.gameObject, _pauseMenuParent,false);
+        resumeButton.GetComponent<MenuButton>()._button.onClick.AddListener(Resume);
+        resumeButton.GetComponent<MenuButton>()._LabelText.text = "Resume";
+        resumeButton.GetComponent<MenuButton>()._LabelText.fontSize = 20f;
 
-        _Menu.onClick.AddListener(() =>
-        {
-            Menu();
-        });
+        GameObject menuButton = Instantiate(_menuScript._MenuButton.gameObject, _pauseMenuParent,false);
+        menuButton.GetComponent<MenuButton>()._button.onClick.AddListener(Menu);
+        menuButton.GetComponent<MenuButton>()._LabelText.text = "Menu";
+        menuButton.GetComponent<MenuButton>()._LabelText.fontSize = 20f;
 
-        _Quit.onClick.AddListener(() =>
-        
-        {
-            Quit();
-        });
+        GameObject quitButton = Instantiate(_menuScript._MenuButton.gameObject, _pauseMenuParent,false);
+        quitButton.GetComponent<MenuButton>()._button.onClick.AddListener(Quit);
+        quitButton.GetComponent<MenuButton>()._LabelText.text = "Quit";
+        quitButton.GetComponent<MenuButton>()._LabelText.fontSize = 20f;
+        yield return null;
     }
     public void Pause()
     {
@@ -64,6 +65,7 @@ public class PauseMenu:MonoBehaviour
 
     private void ShowMenu()
     {
+        Debug.LogError("ShowMenu");
         _pauseMenu.SetActive(true);
     }
 

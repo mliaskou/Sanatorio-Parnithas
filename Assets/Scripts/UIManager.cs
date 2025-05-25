@@ -16,7 +16,7 @@ public class UIManager
     GameObject _narrativeCanvas;
     NarrativesInventory _NarrativesInventory;
     GameObject _uiCanvas;
-
+    GameObject _pauseMenu;
     [HideInInspector] public GameObject _NarrativeInventoryGameObject;
 
     [Header("Player")]
@@ -49,8 +49,9 @@ public class UIManager
         yield return AddressablesLoader.InstantiateGameObject("PauseMenuHolder", (gameObject) => {
 
             gameObject.transform.SetParent(_uiCanvas.transform, false);
-            gameObject.GetComponent<PauseMenu>().Initialise(menu);
+            _pauseMenu = gameObject;
         });
+        yield return _pauseMenu.GetComponent<PauseMenu>().Initialise(menu);
 
         yield return AddressablesLoader.InstantiateGameObject("NarrativeCanvas", (gameObject) =>
         {
