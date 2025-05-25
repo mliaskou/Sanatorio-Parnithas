@@ -11,13 +11,14 @@ public class PlayerController : MonoBehaviour
     Image _interactableImage;
     Text interactableText;
     SoundPlay soundplay;
-    Color interactabletextcolor = new Color32(255, 95, 8, 255);
 
+    Color interactableTextColor;
     public IEnumerator Initialise(GameObject interactable)
     {
         interactable.SetActive(true);
         interactableText = interactable.GetComponent<InteractableReferencies>()._InteractableText;
         _interactableImage = interactable.GetComponent<InteractableReferencies>()._InteractableImage;
+        interactableTextColor = GameStateManager._Instance._UISettings._InteractableTextColor;
         yield return null;
     }
 
@@ -71,8 +72,8 @@ public class PlayerController : MonoBehaviour
     void CrosshairActive()
     {
         _interactableImage.gameObject.SetActive(true);
-        _interactableImage.color = interactabletextcolor;
-        interactableText.color = interactabletextcolor;
+        _interactableImage.color = interactableTextColor;
+        interactableText.color = interactableTextColor;
     }
     void CrosshairNormal()
     {

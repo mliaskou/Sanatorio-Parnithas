@@ -14336,6 +14336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 4216974903349286747}
+  _UISettings: {fileID: 11400000, guid: 5beb9f3de07500c4ba6e70e29cca427b, type: 2}
   _PlayerCamera: {fileID: 0}
   _NarrativeAudioSource: {fileID: 0}
 --- !u!1 &1420563267

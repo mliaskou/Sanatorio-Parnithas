@@ -8,6 +8,7 @@ public class GameStateManager : MonoBehaviour
     public static GameStateManager _Instance;
     public static bool S_isPaused = false;
     public GameObject player;
+    public UISettings _UISettings;
     [HideInInspector] public Camera _PlayerCamera;
     [HideInInspector] public AudioManager _AudioManager;
 

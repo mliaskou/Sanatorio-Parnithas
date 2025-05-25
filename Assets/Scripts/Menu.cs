@@ -12,27 +12,36 @@ public class Menu : MonoBehaviour
     [SerializeField] private Transform _close;
     [SerializeField] private Transform _menuHolder;
     private AudioClip _creditSound;
+
+    float _menuFontSize;
+    float _generalFontSize;
     public IEnumerator Initialize()
     {
+        _menuFontSize = GameStateManager._Instance._UISettings._MenuFontSize;
+        _generalFontSize = GameStateManager._Instance._UISettings._GeneralFontSize;
         GameObject sanatoriumButton = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         sanatoriumButton.GetComponent<MenuButton>()._button.onClick.AddListener(Sanatorio);
+        sanatoriumButton.GetComponent<MenuButton>()._LabelText.fontSize = _menuFontSize;
         sanatoriumButton.GetComponent<MenuButton>()._LabelText.text = "Sanatorio";
 
         GameObject parkOfSouls = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         parkOfSouls.GetComponent<MenuButton>()._button.onClick.AddListener(ParkofSouls);
+        parkOfSouls.GetComponent<MenuButton>()._LabelText.fontSize = _menuFontSize;
         parkOfSouls.GetComponent<MenuButton>()._LabelText.text = "Park of Souls";
 
         GameObject credits = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         credits.GetComponent<MenuButton>()._button.onClick.AddListener(ShowCredits);
+        credits.GetComponent<MenuButton>()._LabelText.fontSize = _menuFontSize;
         credits.GetComponent<MenuButton>()._LabelText.text = "Credits";
 
         GameObject quit = Instantiate(_MenuButton.gameObject, _menuHolder, false);
         quit.GetComponent<MenuButton>()._button.onClick.AddListener(ApplicationQuit);
+        quit.GetComponent<MenuButton>()._LabelText.fontSize = _menuFontSize;
         quit.GetComponent<MenuButton>()._LabelText.text = "Quit";
 
         GameObject closeCredits = Instantiate(_MenuButton.gameObject, _close, false);
         closeCredits.GetComponent<MenuButton>()._button.onClick.AddListener(CloseCredits);
-        closeCredits.GetComponent<MenuButton>()._LabelText.fontSize = 20;
+        closeCredits.GetComponent<MenuButton>()._LabelText.fontSize = _generalFontSize;
         closeCredits.GetComponent<MenuButton>()._LabelText.text = "Close";
 
         yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>("Trypes", onComplete: (audioClip) =>
