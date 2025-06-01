@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
 using System;
 using System.IO;
@@ -10,15 +11,15 @@ using System.Xml;
 [XmlRoot]
 public class Narrative
 {
-    [SerializeField]public string Id = "";
+    [SerializeField] public string Id = "";
     [SerializeField] public string Description = "";
+    [SerializeField] public string TranslationId = "";
 
-    public Narrative() { 
-    
-    }
-    public Narrative(string id, string description)
+    public Narrative() { }
+    public Narrative(string id, string translationId, string description)
     {
         Id = id;
+        TranslationId = translationId;
         Description = description;
     }
 }
@@ -40,7 +41,7 @@ public class NarrativeIds
 public class SerializeXmlWrittenNarratives: MonoBehaviour
 {
     string fileName = "";
-    public List<Narrative> narratives = new List<Narrative>();
+    public  List<Narrative> narratives = new List<Narrative>();
     public List<string> narrativesIds = new List<string>();
     public string introduction = "Εισαγωγή-Αφήγηση";
     public string entrance = "Το σώμα του φυματικού αναπαύεται σε μια λευκή χιονισμένη κορυφή. Το πνεύμα του απολαμβάνει το απόλυτο που έχει εισβάλει στη ζωή του: τον τέλειο 'ερωτα, την ιδανική γυναίκα, τη λύτρωση από τον πόνο. Αυτή είναι η ύλη της Εαρινής Συμφωνίας, ποιήματος ενός ζεύγος θνητών";
@@ -51,36 +52,31 @@ public class SerializeXmlWrittenNarratives: MonoBehaviour
     public string room4N = "Ξεκρέμασε και πέταξε απ΄το ανοιχτό παράθυρο τις μελαγχολικές κορνίζες. Εσύ μου 'φερες τον καινούριο καιρό, το φως της αυγής και το αίμα μου. Να ο ήλιος που τρέχει μέσα στα δάση. δεν έχουμε αργήσει.";
 
     [ContextMenu("CreateXmlNarratives")]
-    public void CreateXmlNarratives()
+   public void CreateXmlNarratives()
     {
-        fileName = Path.Combine(Application.dataPath,"Narratives.xml");
+        fileName = Path.Combine(Application.dataPath,"DataFiles/Narratives.json");
         narratives.Clear();
-        narratives.Add(new Narrative("Introduction", introduction));
-        narratives.Add(new Narrative("Entrance", entrance));
-        narratives.Add(new Narrative("Room2", room2N));
-        narratives.Add(new Narrative("Room3", room3N));
-        narratives.Add(new Narrative("Corridor", corridor));
-        narratives.Add(new Narrative("Exit", exitN));
-        narratives.Add(new Narrative("Room4", room4N));
+        narratives.Add(new Narrative("Introduction","L0001", introduction));
+        narratives.Add(new Narrative("Entrance","L0002", entrance));
+        narratives.Add(new Narrative("Room2","L0003", room2N));
+        narratives.Add(new Narrative("Room3","L0004", room3N));
+        narratives.Add(new Narrative("Corridor","L0005", corridor));
+        narratives.Add(new Narrative("Exit","L0006", exitN));
+        narratives.Add(new Narrative("Room4","L0007", room4N));
         ListNarrative listNarrative = new ListNarrative();
         listNarrative.Narratives.Clear();
         listNarrative.Narratives = narratives;
 
-        var settings = new XmlWriterSettings {
-            Encoding = Encoding.UTF8,
-            Indent = true
-        };
-        XmlSerializer serializer = new XmlSerializer(typeof(ListNarrative));
-        using (var stream = XmlWriter.Create(fileName,settings))
-        {
-            serializer.Serialize(stream, listNarrative);
-        }
+        string narrativeJson = JsonConvert.SerializeObject(listNarrative);
+        File.WriteAllText(fileName, narrativeJson);
+        narratives.Clear();
+        fileName = "";
     }
 
     [ContextMenu("CreateXmlNarrativesIds")]
     public void CreateXmlNarrativesIds()
     {
-        fileName = Path.Combine(Application.dataPath, "NarrativesIds.xml");
+        fileName = Path.Combine(Application.dataPath, "DataFiles/NarrativesIds.json");
         NarrativeIds _narrativeIds= new NarrativeIds();
         narrativesIds.Clear();
         narrativesIds.Add("WindowN");
@@ -94,16 +90,8 @@ public class SerializeXmlWrittenNarratives: MonoBehaviour
         narrativesIds.Add("Entrance");
         narrativesIds.Add("CrossN");
         _narrativeIds.NarrativeIdsList = narrativesIds;
-        var settings = new XmlWriterSettings
-        {
-            Encoding = Encoding.UTF8,
-            Indent = true
-        };
-        XmlSerializer serializer = new XmlSerializer(typeof(NarrativeIds));
-        using (var stream = XmlWriter.Create(fileName, settings))
-        {
-            serializer.Serialize(stream, _narrativeIds);
-        }
+        string narrativeIds = JsonConvert.SerializeObject(_narrativeIds);
+        File.WriteAllText(fileName, narrativeIds);
     }
 }
 

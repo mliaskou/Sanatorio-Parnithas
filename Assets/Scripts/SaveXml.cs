@@ -3,32 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class SaveXml
 {
-    private List<TextAsset> _narrativeXmlList= new List<TextAsset>();
+    private List<AsyncOperationHandle> _narrativeJsonList= new List<AsyncOperationHandle>();
     public IEnumerator DeserializeXml<T>(string xmlName, Action<T> onComplete)where T:class
     {
-        yield return AddressablesLoader.InstantiateGeneralAsync<TextAsset>(xmlName, (narrativeXml) =>
+        yield return AddressablesLoader.InstantiateGeneralAsync<TextAsset>(xmlName,(TextAsset)=>{}, onDone:(narrativeJson, handle) =>
         {
-            _narrativeXmlList.Add(narrativeXml);
-            string narrativeContent = narrativeXml.text.Trim();
+            _narrativeJsonList.Add(handle);
+            string narrativeContent = narrativeJson.text.Trim();
 
-            T listnarrative;
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-            using (TextReader reader = new StringReader(narrativeContent)) {
-                listnarrative = (T)serializer.Deserialize(reader);
-                onComplete?.Invoke(listnarrative);
-            }
+            T ListNarrative = null;
+            Debug.LogError(ListNarrative);
+            T narrativeText = JsonConvert.DeserializeObject<T>(narrativeContent);
+            onComplete?.Invoke(narrativeText);
         });
+        
     }
 
     public void DestroyFeature()
     {
-        foreach(TextAsset xml in _narrativeXmlList)
+        foreach(AsyncOperationHandle handle in _narrativeJsonList)
         {
-            UnityEngine.AddressableAssets.Addressables.Release(xml);
+            UnityEngine.AddressableAssets.Addressables.Release(handle);
         }      
     }
 }
