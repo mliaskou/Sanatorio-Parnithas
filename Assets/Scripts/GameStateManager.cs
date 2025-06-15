@@ -1,10 +1,18 @@
-﻿using UnityStandardAssets.Characters.FirstPerson;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 
 public class GameStateManager : MonoBehaviour
 {
+    public enum GameState{
+        MainMenu,
+        Sanatorium,
+        ParkOfSouls
+    }
+
+    private GameState _CurrentGameState;
     public static GameStateManager _Instance;
     public static bool S_isPaused = false;
     public GameObject player;
@@ -21,18 +29,30 @@ public class GameStateManager : MonoBehaviour
     [HideInInspector] public UIManager _UIManager;
     [HideInInspector] public AudioSource _NarrativeAudioSource;
 
+    public AudioSource _EnvironmentAudioSource {get; private set;}
+    private AsyncOperationHandle<AudioClip> _EnvironmentAudioSourceHandle;
     private void Awake()
     {
-        _Instance = this;
+        if(_Instance==null){
+            
+            _Instance = this;
+        }
+
         AddressablesLoader.InstantiateSyncGameObject("LoadingScreenCanvas", (gameObject) =>
         {
             _loadingScreen=gameObject;
             _LoadingScreen = new LoadingScreen(Instantiate(gameObject));
         });
         _NarrativeAudioSource = gameObject.AddComponent<AudioSource>();
+        _CurrentGameState = GameState.MainMenu;
     }
     private IEnumerator Start()
     {
+        yield return AddressablesLoader.InstantiateGameObject("EnvironmentAudioSource", onComplete:(gameObject) =>
+        {
+            _EnvironmentAudioSource = gameObject.GetComponent<AudioSource>();
+        });
+
         yield return AddressablesLoader.InstantiateGameObject("UIManager", (gameObject) =>
         {
             _uiManagerCanvas = gameObject;           
@@ -81,5 +101,35 @@ public class GameStateManager : MonoBehaviour
         _AudioManager = null;
         S_isPaused = false;
         _Instance = null;
+    }
+
+    public void SetEnvironmentAudioSource(AudioClip clip, AsyncOperationHandle<AudioClip> handle){
+        _EnvironmentAudioSource.clip = clip;
+        _EnvironmentAudioSourceHandle = handle;
+        _EnvironmentAudioSource.Play();
+    }
+
+    public void ReleaseEnvironmentAudioSource()
+    {
+        if (_EnvironmentAudioSource.isPlaying)
+        {
+            _EnvironmentAudioSource.Stop();
+        }
+
+        if (_EnvironmentAudioSourceHandle.IsValid())
+        {
+            UnityEngine.AddressableAssets.Addressables.Release(_EnvironmentAudioSourceHandle);
+        }
+        _EnvironmentAudioSource.clip = null;
+    }
+
+    public void ChangeGameState(GameState newGameState)
+    {
+        _CurrentGameState = newGameState;
+        if (_CurrentGameState == GameState.MainMenu)
+        {
+            _AudioManager.DisableAudioSource();
+            _EnvironmentAudioSource.Stop();
+        }
     }
 }

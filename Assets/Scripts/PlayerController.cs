@@ -5,7 +5,6 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     private GameObject raycastedObj;
-
     [SerializeField] private int rayLength = 10;
 
     Image _interactableImage;
@@ -53,7 +52,6 @@ public class PlayerController : MonoBehaviour
                     CrosshairNormal();
                 }
             }
-
         }
 
 

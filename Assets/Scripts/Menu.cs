@@ -7,7 +7,6 @@ public class Menu : MonoBehaviour
 {
     public GameObject _ImageCredits;
     public GameObject _MenuHolder;
-    private AudioSource _audioSource;
     public MenuButton _MenuButton;
     [SerializeField] private Transform _close;
     [SerializeField] private Transform _menuHolder;
@@ -44,11 +43,6 @@ public class Menu : MonoBehaviour
         closeCredits.GetComponent<MenuButton>()._LabelText.fontSize = _generalFontSize;
         closeCredits.GetComponent<MenuButton>()._LabelText.text = "Close";
 
-        yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>("Trypes", onComplete: (audioClip) =>
-        {
-            _creditSound = audioClip;
-        });
-
         yield return null;
     }
     public void Sanatorio()
@@ -56,6 +50,7 @@ public class Menu : MonoBehaviour
         GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadSanatorio(() =>
         {
+            GameStateManager._Instance.ChangeGameState(GameStateManager.GameState.Sanatorium);
             GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
@@ -67,6 +62,7 @@ public class Menu : MonoBehaviour
         GameStateManager._Instance._LoadingScreen.SetLoadingScreen(true);
         StartCoroutine(LoadParkOfSouls(() =>
         {
+            GameStateManager._Instance.ChangeGameState(GameStateManager.GameState.ParkOfSouls);
             GameStateManager._Instance._LoadingScreen.SetLoadingScreen(false);
             gameObject.SetActive(false);
         }));
@@ -119,18 +115,16 @@ public class Menu : MonoBehaviour
 
     public void CreditSoundPlay()
     {
-        if (_audioSource == null)
+        StartCoroutine(
+         AddressablesLoader.InstantiateGeneralAsync<AudioClip>("Trypes", onDone: (audioClip, handle) =>
         {
-            _audioSource = GameStateManager._Instance._NarrativeAudioSource;
-            _audioSource.clip = _creditSound;
-        }
-
-        _audioSource.Play();
+            GameStateManager._Instance.SetEnvironmentAudioSource(audioClip, handle);
+        }));
     }
 
     public void CreditSoundStop()
     {
-        _audioSource.Stop();
+        GameStateManager._Instance.ReleaseEnvironmentAudioSource();
     }
 }
 

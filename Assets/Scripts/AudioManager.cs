@@ -2,23 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class Audio
 {
     public AudioClip _AudioClip;
     public bool _AudioHasPlayed;
+    public AsyncOperationHandle<AudioClip> _AudioHandle;
 
-    public Audio(AudioClip audioClip, bool audioHasPlayed)
+    public Audio(AudioClip audioClip, bool audioHasPlayed, AsyncOperationHandle<AudioClip> audioHandle)
     {
         _AudioClip = audioClip;
         _AudioHasPlayed = audioHasPlayed;
+        _AudioHandle = audioHandle;
     }
 }
 public class AudioManager
 {
     public Action<int> _ShowAndIncreaseCountText;
 
-    [HideInInspector] public AudioManagerEnvironmentS _AudioManagerEnvironmentS;
     List<string> _narrativeIds = new List<string>();
 
     private AudioSource _narrativesAudioSource;
@@ -27,7 +29,6 @@ public class AudioManager
     public IEnumerator Initialize()
     {
         _narrativesAudioSource = GameStateManager._Instance._NarrativeAudioSource;
-        _AudioManagerEnvironmentS = new AudioManagerEnvironmentS();
 
         yield return GameStateManager._Instance._UIManager._SaveXml.DeserializeXml<NarrativeIds>("NarrativesIds", (narrativeIdsXml) => {
             _narrativeIds = narrativeIdsXml.NarrativeIdsList;
@@ -36,9 +37,8 @@ public class AudioManager
         {
             if (!string.IsNullOrEmpty(id))
             {
-                yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(id, (audio) =>
-                {
-                    _audioNarratives.Add(id, new Audio(audio, false));
+                yield return AddressablesLoader.InstantiateGeneralAsync<AudioClip>(id, onDone:(audio, audioHandle) =>{
+                    _audioNarratives.Add(id, new Audio(audio, false, audioHandle));
                 });
             }
             else
@@ -46,8 +46,6 @@ public class AudioManager
                 Debug.LogError($"Audio {id} is null");
             }
         }
-        
-        yield return _AudioManagerEnvironmentS.Initialize();
         yield return null;
     }
 
@@ -121,7 +119,11 @@ public class AudioManager
         {
             UnityEngine.AddressableAssets.Addressables.Release(audio);
         }
-        yield return _AudioManagerEnvironmentS.DestroyFeature();
-        _AudioManagerEnvironmentS = null;
+        yield return null;
+    }
+
+    public void DisableAudioSource(){
+        _narrativesAudioSource.Stop();
+        _narrativesAudioSource.clip = null;
     }
 }
