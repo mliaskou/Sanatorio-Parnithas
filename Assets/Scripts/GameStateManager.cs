@@ -123,6 +123,10 @@ public class GameStateManager : MonoBehaviour
         _EnvironmentAudioSource.clip = null;
     }
 
+    public void StartCoroutineOverwrite(IEnumerator enumerator){
+        StartCoroutine(enumerator);
+    }
+
     public void ChangeGameState(GameState newGameState)
     {
         _CurrentGameState = newGameState;

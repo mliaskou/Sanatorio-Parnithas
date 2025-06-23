@@ -18,7 +18,6 @@ public class SaveXml
             string narrativeContent = narrativeJson.text.Trim();
 
             T ListNarrative = null;
-            Debug.LogError(ListNarrative);
             T narrativeText = JsonConvert.DeserializeObject<T>(narrativeContent);
             onComplete?.Invoke(narrativeText);
         });

@@ -10,17 +10,11 @@ public class SoundPlay : MonoBehaviour
 
     public void PlayAudio()
     {
-        if (GameStateManager._Instance._AudioManager.HasAudio(name))
-        {
-            GameStateManager._Instance._AudioManager.Play(name);
-        }
-        
+        GameStateManager._Instance._AudioManager.Play(name); 
     }
+    
     public void StopAudio()
     {
-        if (GameStateManager._Instance._AudioManager.HasAudio(name))
-        {
-            GameStateManager._Instance._AudioManager.Stop(name);
-        }
+        GameStateManager._Instance._AudioManager.Stop(name);
     }
 }
