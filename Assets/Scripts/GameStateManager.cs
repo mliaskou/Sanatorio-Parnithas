@@ -19,7 +19,8 @@ public class GameStateManager : MonoBehaviour
     public UISettings _UISettings;
     [HideInInspector] public Camera _PlayerCamera;
     [HideInInspector] public AudioManager _AudioManager;
-
+    public Transform _ParkOfSoulsParent;
+    public Transform _SanatoriumParent;
     private PlayerController _playerController;
     private FirstPersonController _firstPersonController;
 
@@ -31,6 +32,8 @@ public class GameStateManager : MonoBehaviour
 
     public AudioSource _EnvironmentAudioSource {get; private set;}
     private AsyncOperationHandle<AudioClip> _EnvironmentAudioSourceHandle;
+
+    public PositionThePlayer _PositionThePlayer;
     private void Awake()
     {
         if(_Instance==null){
@@ -57,7 +60,7 @@ public class GameStateManager : MonoBehaviour
         {
             _uiManagerCanvas = gameObject;           
         });
-        GetComponent<PositionThePlayer>().SetDepedencies(player, Resume);
+       _PositionThePlayer = new PositionThePlayer(player, Resume,_ParkOfSoulsParent, _SanatoriumParent);
         _PlayerCamera = player.transform.GetChild(0).GetComponent<Camera>();
         _playerController = player.transform.GetChild(0).GetComponent<PlayerController>();
         _firstPersonController = player.GetComponent<FirstPersonController>();

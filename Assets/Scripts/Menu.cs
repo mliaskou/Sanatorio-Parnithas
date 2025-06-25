@@ -70,7 +70,7 @@ public class Menu : MonoBehaviour
 
     IEnumerator LoadSanatorio(Action onComplete)
     {
-        yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(true);
+        yield return GameStateManager._Instance._PositionThePlayer.InitializePlayerPosition(true);
         GameStateManager._Instance._UIManager._NarrativeInventoryGameObject.SetActive(true);
         onComplete?.Invoke();
         yield return null;
@@ -79,7 +79,7 @@ public class Menu : MonoBehaviour
 
     IEnumerator LoadParkOfSouls(Action onComplete)
     {
-        yield return GameStateManager._Instance.GetComponent<PositionThePlayer>().InitializePlayerPosition(false);
+        yield return GameStateManager._Instance._PositionThePlayer.InitializePlayerPosition(false);
         GameStateManager._Instance._UIManager._NarrativeInventoryGameObject.SetActive(true);
         onComplete?.Invoke();
         yield return null;

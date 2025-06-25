@@ -66,7 +66,6 @@ public class PauseMenu:MonoBehaviour
 
     private void ShowMenu()
     {
-        Debug.LogError("ShowMenu");
         _pauseMenu.SetActive(true);
     }
 

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Positions
+  m_EditorClassIdentifier: 
+  m_GroupName: Positions
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 1990171831e29584a9f04b4d61fc8205
+  m_SerializeEntries:
+  - m_GUID: 0184adf58bd23284d86d19da36a38368
+    m_Address: sanatoriumPosition
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e7374706898e7e42927a5a7ab2d4914
+    m_Address: parkOfSoulsPosition
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: a096b3ff828d2bf42a93831da28366c8, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a01c6b35c4739ac4681445d6e5f95f41, type: 2}
+    - {fileID: 11400000, guid: ca653e82c229aee4b823f37fd2ebd0cc, type: 2}
