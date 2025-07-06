@@ -15,9 +15,13 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Initialise(GameObject interactable)
     {
         interactable.SetActive(true);
-        interactableText = interactable.GetComponent<InteractableReferencies>()._InteractableText;
-        _interactableImage = interactable.GetComponent<InteractableReferencies>()._InteractableImage;
-        interactableTextColor = GameStateManager._Instance._UISettings._InteractableTextColor;
+        InteractableReferencies interactableReferencies = interactable.GetComponent<InteractableReferencies>();
+        if (interactableReferencies != null)
+        {
+            interactableText = interactableReferencies._InteractableText;
+            _interactableImage = interactableReferencies._InteractableImage;
+            interactableTextColor = GameStateManager._Instance._UISettings._InteractableTextColor;
+        }
         yield return null;
     }
 

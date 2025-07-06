@@ -8,8 +8,8 @@ public static class AddressablesLoader
 {
     public static IEnumerator InstantiateGeneralAsync<T>(string key, Action<T> onComplete=null, Action<T, AsyncOperationHandle<T>> onDone=null) where T:class
     {
-        AsyncOperationHandle<T> opHandle;
-        opHandle = Addressables.LoadAssetAsync<T>(key);
+   
+        AsyncOperationHandle<T> opHandle = Addressables.LoadAssetAsync<T>(key);
         yield return opHandle;
 
         if (opHandle.Status == AsyncOperationStatus.Succeeded)

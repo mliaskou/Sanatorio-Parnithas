@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 8f5b1b1454d6e0e40b82f147c70e5037
   m_SerializeEntries:
   - m_GUID: 58be43e94f676ec45994c7eec639d44c
-    m_Address: CrossN
+    m_Address: Cross Statue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -33,12 +33,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0672b24d4d4f37f4081f3eee848c500e
-    m_Address: FeatherN
+    m_Address: Feather Statue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f33140bc5a48d704daf77a37452c70b1
-    m_Address: GrammofwnoN
+    m_Address: Gramophone
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 09e2c12f56afa7a4582046a1124117a2
-    m_Address: MarbleLabelN
+    m_Address: Marble Sign
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -58,12 +58,12 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 51b396b9a238ad748820cebf952076d3
-    m_Address: SaddnessN
+    m_Address: Saddness Statue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2e1a502b38b5ef342bd5b5f9872e5fc7
-    m_Address: WindowN
+    m_Address: Window Staue
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
